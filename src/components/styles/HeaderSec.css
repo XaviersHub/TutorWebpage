@@ -1,0 +1,23 @@
+.hero_title{
+    font-size: 130px;
+}
+.searchbarcontainer{
+    padding: 1rem !important;
+}
+.searchbar{
+    font-size: 2rem !important;
+}
+.accountwidget{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 25px;
+    margin: 15px;
+}
+.buttonsize{
+    height: 100px;
+    width:200px;
+    border-radius: 20px !important;
+}
+.textsize{
+    font-size: 30px;
+    align-items: center;
+}
