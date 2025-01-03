@@ -50,5 +50,49 @@
     margin-top: calc(-1* var(--bs-gutter-y));
     margin-right: calc(-0.5* var(--bs-gutter-x));
     margin-left: calc(-0.5* var(--bs-gutter-x));
-
+}
+.Contact{
+    border: black 3px solid;
+    margin: 30px;
+    border-radius: 30px;
+    padding:20px;
+    font-size: 30px;
+    text-align: center;
+}
+.Contact-info{
+    border: black 2px solid;
+    border-radius: 30px;
+}
+.Contact-form{
+    border: black 3px solid;
+    margin: 30px;
+    border-radius: 30px;
+    padding:20px;
+    font-size: 30px;
+    text-align: center;
+}
+.Help-desk{
+    border: black 3px solid;
+    margin: 30px;
+}
+.text-alignment {
+    text-align: center; /* Center text and content horizontally */
+    display: flex;
+    justify-content: center; /* Center the items horizontally */
+    align-items: center; /* Center the items vertically */
+    gap: 10px; /* Add spacing between items */
+}
+.socialMed{
+    margin: 10px;
+}
+.widget-size{
+    height: 30px;
+    width: 30px;
+}
+.social-container {
+    display: flex;
+    justify-content: center; /* Centers the items horizontally */
+    align-items: center; /* Centers the items vertically */
+    gap: 10px; /* Add spacing between items */
+    margin-top: 10px;
 }
