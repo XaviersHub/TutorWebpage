@@ -46,24 +46,12 @@ const NavBar: React.FC = () => {
             <img src="/images/meta.png" className="widget-size" alt="Meta" />
           </a>
           <a
-            href="https://instagram.com"
+            href="https://www.instagram.com/findtutor_gg?igsh=Y2ZoeG1nM2lmNjR1&utm_source=qr"
             target="_blank"
             rel="noopener noreferrer"
             className="nav-link active socialMed"
           >
             <img src="/images/IG.png" className="widget-size" alt="Instagram" />
-          </a>
-          <a
-            href="https://linkedin.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="nav-link active socialMed"
-          >
-            <img
-              src="/images/linkedin.png"
-              className="widget-size"
-              alt="LinkedIn"
-            />
           </a>
         </div>
       </div>
