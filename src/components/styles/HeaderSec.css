@@ -71,6 +71,13 @@
     font-size: 30px;
     text-align: center;
 }
+.form-padder{
+    padding: 20px;
+}
+.button{
+    font-size: 30px !important;
+    border-radius: 20px !important;
+}
 .Help-desk{
     border: black 3px solid;
     margin: 30px;

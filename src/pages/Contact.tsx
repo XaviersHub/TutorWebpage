@@ -3,6 +3,8 @@ import SearchBar from "../components/SearchBar";
 import AccountWidget from "../components/AccountWidget";
 import NavBar from "../components/NavBar";
 import "../components/styles/HeaderSec.css";
+import ContactForm from "../components/ContactForm";
+import Chatbot from "../components/ChatBot";
 
 const Contact = () => {
   return (
@@ -16,12 +18,12 @@ const Contact = () => {
       </div>
       <NavBar />
       <div className="container mt-4">
-        <div className="Contact">
+        <div className="Contact card-title">
           <strong>Contact Information</strong>
-          <div className="Contact-info">
+          <div className="Contact-info cards">
             <div>
               <strong>Email Address:</strong>
-              <a href="mailto:xaviersiao@gmail.com">Mail to here</a>
+              <a href="mailto:tutorapp533@gmail.com">Mail to here</a>
             </div>
             <div>
               <strong>Phone Number:</strong>
@@ -70,11 +72,15 @@ const Contact = () => {
             </div>
           </div>
         </div>
-        <div className="Contact-form">
+        <div className="Contact-form card-title">
           <strong>Contact Form</strong>
-          <div className="Contact-info"></div>
+          <div className="Contact-info cards">
+            <ContactForm />
+          </div>
         </div>
-        <div className="Help-desk">Help desk</div>
+        <div>
+          <Chatbot />
+        </div>
       </div>
     </div>
   );
