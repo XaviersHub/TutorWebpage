@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./styles/HeaderSec.css";
 
 const AccountWidget: React.FC = () => {
@@ -7,9 +8,9 @@ const AccountWidget: React.FC = () => {
       className="d-flex justify-content-end align-items-center p-2"
       style={{ backgroundColor: "#BDEDF2" }}
     >
-      <a href="https://youtube.com" className="nav-link accountwidget">
+      <Link to="/Login" className="nav-link accountwidget">
         Sign up/Log in
-      </a>
+      </Link>
     </div>
   );
 };
