@@ -1,13 +1,13 @@
 import React from "react";
 import "../components/styles/Login.css";
 
-const SignUp = () => {
+const StudentSignUp = () => {
   return (
     <div className="login-container">
       <div className="login-box">
         {/* Sign-in Section */}
         <div className="signin-section">
-          <h2 className="signin-title">REGISTER</h2>
+          <h2 className="signin-title">Register as a STUDENT</h2>
           <div className="input-group">
             <label className="input-label">Email Address</label>
             <input
@@ -55,11 +55,11 @@ const SignUp = () => {
 
         {/* Welcome Section */}
         <div className="welcome-section">
-          <h2 className="welcome-title">Join Our Team!</h2>
+          <h2 className="welcome-title"></h2>
         </div>
       </div>
     </div>
   );
 };
 
-export default SignUp;
+export default StudentSignUp;

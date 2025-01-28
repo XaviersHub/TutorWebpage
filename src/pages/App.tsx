@@ -5,8 +5,11 @@ import AboutUs from "../pages/AboutUs";
 import Contact from "./Contact";
 import FAQ from "./FAQ";
 import Reviews from "./Reviews";
-import Login from "./Login";
-import SignUp from "./SignUp";
+import StudentLogin from "./StudentLogin";
+import StudentSignUp from "./StudentSignUp";
+import LoginMain from "./LoginMain";
+import TutorLogin from "./TutorLogin";
+import TutorSignUp from "./TutorSignUp"
 const FindATutor = React.lazy(() => import("./FindTutor"));
 const BecomeATutor = React.lazy(() => import("./BecomeTutor"));
 
@@ -22,8 +25,11 @@ const App: React.FC = () => {
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/find-tutor" element={<FindATutor />} />
         <Route path="/become-tutor" element={<BecomeATutor />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/loginmain" element={<LoginMain />} />
+        <Route path="/studentlogin" element={<StudentLogin />} />
+        <Route path="/studentsignup" element={<StudentSignUp />} />
+        <Route path="/tutorlogin" element={<TutorLogin />} />
+        <Route path="/tutorsignup" element={<TutorSignUp />} />
       </Routes>
     </Router>
   );
