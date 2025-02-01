@@ -74,21 +74,40 @@
 }
 
 .student-login-button {
-  width:50%;
+  width: 75%;
+  padding: 10px;
+  position: relative;
+  left: 10%;
   background-color: #141772;
   border-radius: 15px;
-  font-size:20px;
-  transition: background-color 0.3s ease;
+  font-size: 20px;
+  color: white;
+  transition: background-color 0.3s ease, background-image 0.3s ease;
 }
 
-.tutor-login-button {
-  height:20%; 
-  width:auto;
-  background-color: #DEDEDE;
-  border-radius: 15px;
-  font-size:20px;
-  transition: background-color 0.3s ease;
+/* Color fade effect on hover */
+.student-login-button:hover {
+  background-image: linear-gradient(to right, #141772, #4b50c8);
 }
+
+/* Tutor Login Button */
+.tutor-login-button {
+  width: 75%;
+  padding: 10px;
+  position: relative;
+  left: 10%;
+  background-color: #353839;
+  border-radius: 15px;
+  font-size: 20px;
+  color: white;
+  transition: background-color 0.3s ease, background-image 0.3s ease;
+}
+
+/* Color fade effect on hover */
+.tutor-login-button:hover {
+  background-image: linear-gradient(to right, #2C3539, #e0e0e0);
+}
+
 
 .login-button:hover {
   background-color: #1f2937;
@@ -130,6 +149,10 @@
 .signup-text {
   color: #6b7280;
   font-size: 16px;
+  position: relative;
+  align-self:center;
+  padding:15px;
+  left:15%;
 }
 
 .signup-link {
@@ -137,6 +160,8 @@
   text-decoration: none;
   font-size: 16px;
   font-weight: bold;
+  position: relative;
+  left:5px;
 }
 
 .signup-link:hover {

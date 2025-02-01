@@ -15,7 +15,7 @@ const HeaderSection: React.FC = () => {
             <Link to="/find-tutor" className="btn btn-primary me-2 buttonsize">
               <div className="textsize">Find a Tutor</div>
             </Link>
-            <Link to="/become-tutor" className="btn btn-success buttonsize">
+            <Link to="/loginmain" className="btn btn-success buttonsize">
               <div className="textsize">Become a Tutor</div>
             </Link>
           </div>
@@ -23,8 +23,7 @@ const HeaderSection: React.FC = () => {
 
         <div className="col-md-6">
           <img
-            src="https://via.placeholder.com/400"
-            alt="Placeholder"
+            src="/images/studyguy.jpg"
             className="img-fluid"
           />
         </div>

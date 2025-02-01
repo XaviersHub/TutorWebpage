@@ -69,7 +69,7 @@ const StudentSignUp: React.FC = () => {
     <div className="login-container">
       <div className="signup-box">
         <div className="signin-section">
-          <h2 className="signin-title">Register as a STUDENT</h2>
+          <h2 className="signin-title">Register as a TUTOR</h2>
           {error && <p className="error-message">{error}</p>}
 
           <form onSubmit={handleSignUp}>
