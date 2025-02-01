@@ -1,0 +1,15 @@
+.custom-list-item {
+    background-color: #e9ecef; 
+    border-radius: 8px; 
+  }
+  
+  .custom-list-item:hover {
+    background-color: #819da7;
+
+  }
+  .header-bar {
+    background-color: rgb(190, 221, 255);
+    height: 50px;
+    width: 100%;
+  }
+  

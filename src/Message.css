@@ -1,0 +1,36 @@
+/* For the student list */
+.student-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .student-item {
+    cursor: pointer;
+    background-color: #f8f9fa;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .student-item:hover {
+    background-color: #e2e6ea;
+  }
+  
+  /* For the chat window */
+  .chat-window {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  .chat-box {
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+  }
+  
