@@ -1,27 +1,15 @@
 {
-  "name": "tutorapp",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "name": "tutorwebpage-homepage-setup",
+  "version": "1.0.0",
+  "main": "index.js",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "author": "",
+  "license": "ISC",
+  "description": "",
   "dependencies": {
-    "bootstrap": "^5.2.3",
-    "emailjs-com": "^3.2.0",
-    "firebase": "^11.2.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.28.1"
-  },
-  "devDependencies": {
-    "@types/react": "^18.0.27",
-    "@types/react-dom": "^18.0.10",
-    "@vitejs/plugin-react": "^3.1.0",
-    "sass": "^1.83.0",
-    "typescript": "^4.9.3",
-    "vite": "^4.5.9"
+    "@tailwindcss/vite": "^4.0.0",
+    "tailwindcss": "^4.0.0"
   }
 }
