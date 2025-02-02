@@ -17,7 +17,7 @@ const TutorLogin = () => {
     setError("");
 
     try {
-      console.log("🚀 Checking Firestore for tutor...");
+      console.log("🚀 Checking Firestore for tutor credentials...");
 
       // ✅ Query Firestore for tutor by email
       const tutorsRef = collection(db, "tutors");
@@ -31,6 +31,7 @@ const TutorLogin = () => {
 
       let userFound = false;
 
+      // Loop through results and validate password
       querySnapshot.forEach((doc) => {
         const userData = doc.data();
         console.log("✅ Found Tutor Data:", userData);
@@ -38,7 +39,9 @@ const TutorLogin = () => {
         if (userData.password === password) {
           console.log("✅ Password matches! Logging in...");
           userFound = true;
-          navigate("/Homepage"); // ✅ Redirect to Homepage
+
+          alert("✅ Login successful!");
+          navigate("/"); // ✅ Redirect to root "/"
         }
       });
 
