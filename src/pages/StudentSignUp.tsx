@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"; // 🚀 Import useNavigate for r
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../database/firebaseConfig"; // Firestore config
 import "../components/styles/Login.css";
+import WelcomeSection from "../components/WelcomeSection";
 
 const StudentSignUp: React.FC = () => {
   const navigate = useNavigate(); // ✅ Initialize navigation hook
@@ -150,6 +151,7 @@ const StudentSignUp: React.FC = () => {
             </button>
           </form>
         </div>
+        <WelcomeSection></WelcomeSection>
       </div>
     </div>
   );

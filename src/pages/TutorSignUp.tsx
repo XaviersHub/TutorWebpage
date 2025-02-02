@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"; // 🚀 Import useNavigate for r
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../database/firebaseConfig"; // Firestore config
 import "../components/styles/Login.css";
+import WelcomeSection from "../components/WelcomeSection";
 
 const TutorSignUp: React.FC = () => {
   const navigate = useNavigate(); // ✅ Initialize navigation hook
@@ -78,7 +79,7 @@ const TutorSignUp: React.FC = () => {
   return (
     <div className="login-container">
       <div className="signup-box">
-        <div className="signin-section">
+        <div className="register-section">
           <h2 className="signin-title">Register as a TUTOR</h2>
           {error && <p className="error-message">{error}</p>}
 
@@ -184,7 +185,7 @@ const TutorSignUp: React.FC = () => {
               <label className="input-label">Bio/Experience</label>
               <textarea
                 name="bio"
-                className="input-field"
+                className="input-field-bio"
                 placeholder="Enter your bio/experience"
                 value={formData.bio}
                 onChange={handleChange}
@@ -197,6 +198,7 @@ const TutorSignUp: React.FC = () => {
             </button>
           </form>
         </div>
+        <WelcomeSection></WelcomeSection>
       </div>
     </div>
   );
