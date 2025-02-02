@@ -4,60 +4,70 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "../database/firebaseConfig"; // Firestore config
 import "../components/styles/Login.css";
 
-const StudentSignUp: React.FC = () => {
+const TutorSignUp: React.FC = () => {
   const navigate = useNavigate(); // ✅ Initialize navigation hook
 
   const [formData, setFormData] = useState<{
     email: string;
     password: string;
+    fullName: string;
+    nric: string;
     subjects: string[];
     levels: string;
     location: string;
+    bio: string;
   }>({
     email: "",
     password: "",
+    fullName: "",
+    nric: "",
     subjects: [],
     levels: "",
     location: "",
+    bio: "",
   });
 
   const [error, setError] = useState("");
 
-  // Handle input changes for text fields
+  // Handle text input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle checkboxes for subject selection
+  // Handle checkbox changes for subjects
   const handleSubjectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       subjects: checked
-        ? [...prevData.subjects, value] // Add subject if checked
-        : prevData.subjects.filter((subject) => subject !== value), // Remove if unchecked
+        ? [...prevData.subjects, value]
+        : prevData.subjects.filter((subject) => subject !== value),
     }));
   };
 
+  // Handle form submission
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
 
     try {
-      console.log("🚀 Student form submission triggered!");
+      console.log("🚀 Tutor form submission triggered!");
 
-      // ✅ Write data directly to Firestore in "students" collection
-      await addDoc(collection(db, "students"), {
+      // ✅ Write data to Firestore in the "tutors" collection
+      await addDoc(collection(db, "tutors"), {
         email: formData.email,
         password: formData.password, // Consider removing this for security
+        fullName: formData.fullName,
+        nric: formData.nric,
         subjects: formData.subjects,
         levels: formData.levels,
         location: formData.location,
+        bio: formData.bio,
         createdAt: new Date(),
       });
 
-      alert("✅ Student registered successfully!");
-      // 🚀 Redirect user to the Login page
+      alert("✅ Tutor registered successfully!");
+      // 🚀 Redirect user to Login page
       navigate("/LoginMain");
     } catch (err) {
       setError("❌ Error: " + (err as Error).message);
@@ -100,7 +110,33 @@ const StudentSignUp: React.FC = () => {
             </div>
 
             <div className="input-group">
-              <label className="input-label">Subjects</label>
+              <label className="input-label">Full Name</label>
+              <input
+                type="text"
+                name="fullName"
+                className="input-field"
+                placeholder="Enter your full name"
+                value={formData.fullName}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="input-group">
+              <label className="input-label">NRIC</label>
+              <input
+                type="text"
+                name="nric"
+                className="input-field"
+                placeholder="Enter your NRIC"
+                value={formData.nric}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="input-group">
+              <label className="input-label">Subjects Taught</label>
               <div className="checkbox-group">
                 {["English", "Mathematics", "Science", "Humanities"].map((subj) => (
                   <label key={subj}>
@@ -144,6 +180,18 @@ const StudentSignUp: React.FC = () => {
               />
             </div>
 
+            <div className="input-group">
+              <label className="input-label">Bio/Experience</label>
+              <textarea
+                name="bio"
+                className="input-field"
+                placeholder="Enter your bio/experience"
+                value={formData.bio}
+                onChange={handleChange}
+                required
+              ></textarea>
+            </div>
+
             <button type="submit" className="login-button">
               SIGN UP
             </button>
@@ -154,4 +202,4 @@ const StudentSignUp: React.FC = () => {
   );
 };
 
-export default StudentSignUp;
+export default TutorSignUp;

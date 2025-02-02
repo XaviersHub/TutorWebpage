@@ -25,8 +25,6 @@
   box-sizing: border-box;
   overflow-y: auto;
   max-height: 100%;
-  scrollbar-width: thin;
-  scrollbar-color: #ccc #f3f4f6;
 }
 
 .signin-title {
