@@ -6,7 +6,7 @@ import NavBar from "../components/NavBar";
 const tutors = [
   {
     id: 1,
-    photo: "https://via.placeholder.com/100",
+    photo: "https://i.ibb.co/wrp20vfk/tutor1.jpg",
     name: "John Doe",
     subject: "Mathematics",
     level: "Sec 4",
@@ -14,7 +14,7 @@ const tutors = [
   },
   {
     id: 2,
-    photo: "https://via.placeholder.com/100",
+    photo: "https://i.ibb.co/3qqRx4J/tutor2.jpg",
     name: "Sarah Lee",
     subject: "Chemistry",
     level: "Sec 3",
@@ -22,7 +22,7 @@ const tutors = [
   },
   {
     id: 3,
-    photo: "https://via.placeholder.com/100",
+    photo: "https://i.ibb.co/WWBdH3mf/image.png",
     name: "Michael Tan",
     subject: "Physics",
     level: "Sec 4",
@@ -30,7 +30,7 @@ const tutors = [
   },
   {
     id: 4,
-    photo: "https://via.placeholder.com/100",
+    photo: "https://i.ibb.co/Lz704P1Q/tutor4.webp",
     name: "Priya Sharma",
     subject: "English",
     level: "Sec 2",

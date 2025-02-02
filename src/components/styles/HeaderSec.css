@@ -103,3 +103,6 @@
     gap: 10px; /* Add spacing between items */
     margin-top: 10px;
 }
+.img-fluid {
+    border-radius: 15px;
+}

@@ -16,27 +16,26 @@ const LoginMain = () => {
                     - Student Login -
                   </button>
                   </Link> 
-                  <p className="signup-text">Don't have a STUDENT account yet?</p>
-                        <Link to="/StudentSignUp" className="signup-link">
-                          Sign up
-                        </Link>
+                  <div className="signup-text">Don't have a STUDENT account yet?
+                  <Link to="/StudentSignUp" className="signup-link"> Sign up</Link>
+                    </div>
                   </div>
                   <Link to="/TutorLogin">
                   <button className="tutor-login-button">
                     - Tutor Login -
                   </button>
                   </Link>
-                  <p className="signup-text">Don't have a TUTOR account yet?</p>
-                        <Link to="/TutorSignUp" className="signup-link">
-                          Sign up
+                  <div className="signup-text">Don't have a TUTOR account yet? 
+                  <Link to="/TutorSignUp" className="signup-link">
+                           Sign up
                         </Link>
                   </div>
+                  </div>
+                  <WelcomeSection>
+                        </WelcomeSection>
                 </div>
-        
-                {/* Welcome Section */}
-                <WelcomeSection>
-                </WelcomeSection>
                 </div>
+                
           );
         };
         
