@@ -1,0 +1,173 @@
+.homepage {
+    background-color: #e0f3f4; /* Change this to your desired color */
+    min-height: 100vh; /* Ensures full-page coverage */
+    width: 100%;
+  }
+  
+.hero_title{
+    font-size: 100px;
+   font-family: IBM_Plex_Serif;
+    text-align: left;
+    margin-top: 40px;
+   position: absolute;
+    left: 100px;
+    top: 25%;
+   
+}
+.custom-margin {
+    margin-top: 400px;  /* Adjust as needed */
+    margin-left: -200px;
+    text-align: left;
+}
+.buttoncontainer {
+    display: flex;
+    gap: 0px; /* Space between buttons */
+  
+    padding-left: 0; 
+  }
+.custom-image {
+    width: 140%;  /* Adjust the width as needed */
+    height: auto;  /* Keeps the aspect ratio */
+ 
+    border-radius: 500px;
+ 
+}
+h2{  
+    
+    font-family: Montserrat;
+    text-align: center;
+    margin: 20px;
+    top:100px;
+
+}
+
+.searchbarcontainer{
+    padding: 1rem !important;
+}
+.searchbar{
+    font-size: 2rem !important;
+}
+.accountwidget{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 25px;
+    margin: 15px;
+}
+.buttonsize{
+    height: 100px;
+    width:200px;
+    border-radius: 20px !important;
+}
+.textsize{
+    font-size: 30px;
+    align-items: center;
+    font-family: Montserrat;
+}
+.card-title{
+    border: black 2px solid;
+    background-color: antiquewhite;
+    border-radius: 20px;
+    font-size: 30px;
+    text-align: center;
+    margin: 30px ;
+    width: 100%;
+}
+.cards{
+    border: black 1px solid;
+    background-color: blanchedalmond;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 20px;
+}
+.cardtext{
+    font-size: 20px;
+    text-align: center;
+    padding: 10px;
+
+}
+.cardrow{
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display:block;
+    margin-top: calc(-1* var(--bs-gutter-y));
+    margin-right: calc(-0.5* var(--bs-gutter-x));
+    margin-left: calc(-0.5* var(--bs-gutter-x));
+}
+.Contact{
+    border: black 3px solid;
+    margin: 30px;
+    border-radius: 30px;
+    padding:20px;
+    font-size: 30px;
+    text-align: center;
+}
+.Contact-info{
+    border: black 2px solid;
+    border-radius: 30px;
+}
+.Contact-form{
+    border: black 3px solid;
+    margin: 30px;
+    border-radius: 30px;
+    padding:20px;
+    font-size: 30px;
+    text-align: center;
+}
+.form-padder{
+    padding: 20px;
+}
+.button{
+    font-size: 30px !important;
+    border-radius: 20px !important;
+    font-family: Monserrat;
+}
+.Help-desk{
+    border: black 3px solid;
+    margin: 30px;
+}
+.text-alignment {
+    text-align: center; /* Center text and content horizontally */
+    display: flex;
+    justify-content: center; /* Center the items horizontally */
+    align-items: center; /* Center the items vertically */
+    gap: 10px; /* Add spacing between items */
+}
+.socialMed{
+    margin: 10px;
+}
+.widget-size{
+    height: 30px;
+    width: 30px;
+}
+.social-container {
+    display: flex;
+    justify-content: center; /* Centers the items horizontally */
+    align-items: center; /* Centers the items vertically */
+    gap: 10px; /* Add spacing between items */
+    margin-top: 10px;
+}
+.image-fluid{
+    width: 100%;
+    height: 100%;
+    position:absolute;
+    right: 0;
+}
+
+
+@font-face {
+    font-family: IBM_Plex_Serif ;
+    src: url(C:\Users\frinz\Downloads\TutorWebpage-homepage-setup\TutorWebpage-homepage-setup\public\IBM_Plex_Serif\IBMPlexSerif-Regular.ttf);
+}
+.IBM_Plex_Serif{
+    font-family: IBM_Plex_Serif;
+}
+@font-face {
+    font-family: Montserrat;
+    src: url(C:\Users\frinz\Downloads\TutorWebpage-homepage-setup\TutorWebpage-homepage-setup\public\Montserrat\Montserrat-VariableFont_wght.ttf);
+}
+.Montserrat{
+    font-family: Montserrat;
+    font-size: 100px;
+}
+
+
+
