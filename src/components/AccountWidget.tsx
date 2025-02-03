@@ -6,7 +6,7 @@ const AccountWidget: React.FC = () => {
   return (
     <div
       className="d-flex justify-content-end align-items-center p-2"
-      style={{ backgroundColor: "#BDEDF2" }}
+      style={{ backgroundColor: "#B2D8E9" }}
     >
       <Link to="/LoginMain" className="nav-link accountwidget">
         Sign up/Log in

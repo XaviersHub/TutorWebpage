@@ -1,6 +1,46 @@
+.homepage {
+    background-color: #e0f3f4; /* Change this to your desired color */
+    min-height: 100vh; /* Ensures full-page coverage */
+    width: 100%;
+  }
+  
 .hero_title{
     font-size: 100px;
+   font-family: IBM_Plex_Serif;
+    text-align: left;
+    margin-top: 40px;
+   position: absolute;
+    left: 100px;
+    top: 25%;
+   
 }
+.custom-margin {
+    margin-top: 400px;  /* Adjust as needed */
+    margin-left: -200px;
+    text-align: left;
+}
+.buttoncontainer {
+    display: flex;
+    gap: 0px; /* Space between buttons */
+  
+    padding-left: 0; 
+  }
+.custom-image {
+    width: 140%;  /* Adjust the width as needed */
+    height: auto;  /* Keeps the aspect ratio */
+ 
+    border-radius: 500px;
+ 
+}
+h2{  
+    
+    font-family: Montserrat;
+    text-align: center;
+    margin: 20px;
+    top:100px;
+
+}
+
 .searchbarcontainer{
     padding: 1rem !important;
 }
@@ -20,6 +60,7 @@
 .textsize{
     font-size: 30px;
     align-items: center;
+    font-family: Montserrat;
 }
 .card-title{
     border: black 2px solid;
@@ -77,6 +118,7 @@
 .button{
     font-size: 30px !important;
     border-radius: 20px !important;
+    font-family: Monserrat;
 }
 .Help-desk{
     border: black 3px solid;
@@ -103,6 +145,29 @@
     gap: 10px; /* Add spacing between items */
     margin-top: 10px;
 }
-.img-fluid {
-    border-radius: 15px;
+.image-fluid{
+    width: 100%;
+    height: 100%;
+    position:absolute;
+    right: 0;
 }
+
+
+@font-face {
+    font-family: IBM_Plex_Serif ;
+    src: url(C:\Users\frinz\Downloads\TutorWebpage-homepage-setup\TutorWebpage-homepage-setup\public\IBM_Plex_Serif\IBMPlexSerif-Regular.ttf);
+}
+.IBM_Plex_Serif{
+    font-family: IBM_Plex_Serif;
+}
+@font-face {
+    font-family: Montserrat;
+    src: url(C:\Users\frinz\Downloads\TutorWebpage-homepage-setup\TutorWebpage-homepage-setup\public\Montserrat\Montserrat-VariableFont_wght.ttf);
+}
+.Montserrat{
+    font-family: Montserrat;
+    font-size: 100px;
+}
+
+
+

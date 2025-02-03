@@ -12,16 +12,21 @@
     "bootstrap": "^5.2.3",
     "emailjs-com": "^3.2.0",
     "firebase": "^11.2.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.28.2"
+    "react-router-dom": "^6.28.1"
   },
   "devDependencies": {
-    "@types/react": "^18.0.27",
-    "@types/react-dom": "^18.0.10",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^3.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "sass": "^1.83.0",
     "typescript": "^4.9.3",
     "vite": "^4.5.9"
-  }
+  },
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

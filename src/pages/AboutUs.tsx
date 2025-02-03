@@ -6,12 +6,13 @@ import "../components/styles/HeaderSec.css";
 
 const AboutUs = () => {
   return (
-    <div>
+    <div className="homepage">
       <div
         className="d-flex justify-content-between"
-        style={{ backgroundColor: "#BDEDF2" }}
+        style={{ backgroundColor: "#B2D8E9" }}
       >
         <SearchBar />
+        <h2 className="title" style={{ fontSize: "60px", fontWeight: "bold", marginTop:"15px" }}>TutorGo</h2>
         <AccountWidget />
       </div>
       <NavBar />

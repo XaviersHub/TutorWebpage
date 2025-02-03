@@ -6,12 +6,12 @@ const NavBar: React.FC = () => {
   return (
     <nav
       className="navbar navbar-expand-lg bar-alignment"
-      style={{ backgroundColor: "#BDEDF2" }}
+      style={{ backgroundColor: "#B2D8E9" }}
     >
       <div className="container-fluid navbarSize">
         {/* Email Section */}
         <div className="d-flex align-items-center">
-          <a href="mailto:support@example.com" className="nav-link active">
+          <a href="mailto:tutorapp533@gmail.com" className="nav-link active">
             📧 Email
           </a>
         </div>
