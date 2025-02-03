@@ -5,7 +5,7 @@ const SearchBar: React.FC = () => {
   return (
     <div
       className="d-flex justify-content-start align-items-center searchbarcontainer"
-      style={{ backgroundColor: "#BDEDF2" }}
+      style={{ backgroundColor: "#B2D8E9" }}
     >
       <input
         type="text"

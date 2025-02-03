@@ -92,22 +92,23 @@ const FAQ = () => {
   };
 
   return (
-    <div>
+    <div className="homepage">
       <div
         className="d-flex justify-content-between"
-        style={{ backgroundColor: "#BDEDF2" }}
+        style={{ backgroundColor: "#B2D8E9" }}
       >
         <SearchBar />
+        <h2 className="title" style={{ fontSize: "60px", fontWeight: "bold", marginTop:"15px" }}>TutorGo</h2>
         <AccountWidget />
       </div>
       <NavBar />
 
       <div className="container mt-4">
-        <h1 className="text-center mb-4">Frequently Asked Questions</h1>
+        <h1 className="text-center mb-4"style={{ fontFamily:"IBM_Plex_Serif", fontWeight:"bold" }}>Frequently Asked Questions</h1>
 
         {faqs.map((section, secIndex) => (
           <div key={secIndex} className="mb-4">
-            <h3 className="text-primary">{section.category}</h3>
+            <h3 style={{ fontFamily:"IBM_Plex_Serif", fontWeight:"bold" }}className="text-primary">{section.category}</h3>
             <div className="accordion">
               {section.questions.map((faq, index) => (
                 <div key={index} className="card mb-2">
