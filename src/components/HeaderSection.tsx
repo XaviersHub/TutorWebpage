@@ -10,7 +10,7 @@ const HeaderSection: React.FC = () => {
     <div className="container mt-4">
       <div className="row align-items-center">
         <div className="col-md-6">
-          <h1 className="hero_title">
+          <h1 className="hero_title fade-in">
           <strong> Find A Tutor <br />
             <strong><u>You</u></strong>
             <br /> Can Trust</strong>
@@ -20,16 +20,16 @@ const HeaderSection: React.FC = () => {
         
           <div className="buttoncontainer d-flex custom-margin ps-0">
            
-            <Link to="/find-tutor" className="btn btn-primary me-2 buttonsize">
+            <Link to="/find-tutor" className="btn btn-primary me-2 buttonsize fade-in">
               <div className="textsize">Find a Tutor</div>
             </Link>
-            <Link to="/TutorSignUp" className="btn btn-success buttonsize">
+            <Link to="/TutorSignUp" className="btn btn-success buttonsize fade-in">
               <div className="textsize">Become a Tutor</div>
             </Link>
           </div>
         </div>
 
-        <div className="custom-image-container col-md-6">
+        <div className="custom-image-container col-md-6 fade-in-top">
           <img src="/images/tutor.jpg" alt="Picture" className="custom-image rounded" />
         </div>
       </div>

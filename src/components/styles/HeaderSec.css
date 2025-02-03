@@ -28,7 +28,7 @@
 .custom-image {
     width: 140%;  /* Adjust the width as needed */
     height: auto;  /* Keeps the aspect ratio */
- 
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
     border-radius: 500px;
  
 }
@@ -56,6 +56,7 @@ h2{
     height: 100px;
     width:200px;
     border-radius: 20px !important;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
 }
 .textsize{
     font-size: 30px;
@@ -70,6 +71,7 @@ h2{
     text-align: center;
     margin: 30px ;
     width: 100%;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
 }
 .cards{
     border: black 1px solid;
@@ -167,6 +169,37 @@ h2{
 .Montserrat{
     font-family: Montserrat;
     font-size: 100px;
+}
+/* animations to make ui nicer */
+.fade-in {
+    opacity: 0; /* Start invisible */
+    animation: fadeIn 1s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in-top {
+    opacity: 0; /* Start transparent */
+    transform: translateY(-20px); /* Start 20px above */
+    animation: fadeInTop 1.5s ease-out forwards;
+}
+
+@keyframes fadeInTop {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 

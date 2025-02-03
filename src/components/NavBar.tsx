@@ -11,26 +11,26 @@ const NavBar: React.FC = () => {
       <div className="container-fluid navbarSize">
         {/* Email Section */}
         <div className="d-flex align-items-center">
-          <a href="mailto:tutorapp533@gmail.com" className="nav-link active">
+          <a href="mailto:tutorapp533@gmail.com" className="nav-link active text-fade">
             📧 Email
           </a>
         </div>
 
         {/* Center Navigation Links */}
         <div className="navbar-nav mx-auto">
-          <Link to="/" className="nav-link active">
+          <Link to="/" className="nav-link active text-fade">
             HOME
           </Link>
-          <Link to="/about" className="nav-link active">
+          <Link to="/about" className="nav-link active text-fade">
             ABOUT US
           </Link>
-          <Link to="/contact" className="nav-link active">
+          <Link to="/contact" className="nav-link active text-fade">
             CONTACT
           </Link>
-          <Link to="/faqs" className="nav-link active">
+          <Link to="/faqs" className="nav-link active text-fade">
             FAQS
           </Link>
-          <Link to="/reviews" className="nav-link active">
+          <Link to="/reviews" className="nav-link active text-fade">
             REVIEWS
           </Link>
         </div>
@@ -41,7 +41,7 @@ const NavBar: React.FC = () => {
             href="https://facebook.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="nav-link active socialMed"
+            className="nav-link active socialMed "
           >
             <img src="/images/meta.png" className="widget-size" alt="Meta" />
           </a>

@@ -3,6 +3,7 @@ import SearchBar from "../components/SearchBar";
 import AccountWidget from "../components/AccountWidget";
 import NavBar from "../components/NavBar";
 import HeaderSection from "../components/HeaderSection";
+import AboutUs from "../pages/AboutUs";
 import "../components/styles/HeaderSec.css";
 
 const HomePage: React.FC = () => {
