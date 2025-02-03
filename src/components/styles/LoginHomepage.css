@@ -4,7 +4,7 @@
     background-color: azure;
     border-radius: 10px;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
-    position: absolute;
+    position: relative; /* Changed from absolute to relative */
     left: 5%;
     display: flex;
     justify-content: center;
@@ -12,6 +12,7 @@
     padding: 20px;
     overflow: auto; /* Allows scrolling if content overflows */
 }
+
 
 .scheduletable {
     width: 100%;
