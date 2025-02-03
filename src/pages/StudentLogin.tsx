@@ -41,7 +41,7 @@ const StudentLogin = () => {
           userFound = true;
 
           alert("✅ Login successful!");
-          navigate("/find-tutor"); // ✅ Redirect to find-tutor
+          navigate("/StudentHomepage"); // ✅ Redirect to find-tutor
         }
       });
 
