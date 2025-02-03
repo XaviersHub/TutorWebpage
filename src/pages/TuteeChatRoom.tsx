@@ -1,117 +1,143 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { db } from "../database/firebaseConfig";
-import { getAuth } from "firebase/auth";
-import {
-  collection,
-  addDoc,
-  serverTimestamp,
-  onSnapshot,
-  query,
-  orderBy,
-} from "firebase/firestore";
-import "../components/styles/ChatRoom.css";
+import { doc, getDoc, updateDoc, arrayUnion, collection, query, where, getDocs } from "firebase/firestore";
+import Cookies from "js-cookie";
+import "../components/styles/ChatRoom.css"; // Import the new chatroom styles
 
-const TuteeChatRoom = () => {
-  const [messages, setMessages] = useState<
-    { id: string; sender: string; text: string }[]
-  >([]);
-  const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(true);
-  const chatEndRef = useRef<HTMLDivElement | null>(null);
+interface Message {
+  sender: string;
+  content: string;
+  timestamp: string;
+}
 
-  const auth = getAuth();
-  const user = auth.currentUser; // Get the authenticated user
+const ChatRoom: React.FC = () => {
+  const { chatroomId } = useParams<{ chatroomId?: string }>(); // Allow chatroomId to be undefined
+  const navigate = useNavigate();
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [newMessage, setNewMessage] = useState("");
+  const [otherUserName, setOtherUserName] = useState("Chat");
+  const [userType, setUserType] = useState<"student" | "tutor" | null>(null);
+  const userEmail = Cookies.get("userEmail");
 
-  // Fetch messages from Firestore in real-time
   useEffect(() => {
-    const q = query(collection(db, "messages"), orderBy("timestamp", "asc"));
-    const unsubscribe = onSnapshot(
-      q,
-      (snapshot) => {
-        setMessages(
-          snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as any))
-        );
-        setLoading(false);
-      },
-      (error) => {
-        console.error("Error fetching messages:", error);
-        alert("Permission denied. Please log in.");
-        setLoading(false);
+    if (!chatroomId || !userEmail) {
+      console.error("Chatroom ID or User not found.");
+      return;
+    }
+
+    const fetchUserType = async () => {
+      try {
+        // Check if the user is a student
+        const studentsRef = collection(db, "students");
+        const studentQuery = query(studentsRef, where("email", "==", userEmail));
+        const studentSnap = await getDocs(studentQuery);
+
+        if (!studentSnap.empty) {
+          setUserType("student");
+          return;
+        }
+
+        // Check if the user is a tutor
+        const tutorsRef = collection(db, "tutors");
+        const tutorQuery = query(tutorsRef, where("email", "==", userEmail));
+        const tutorSnap = await getDocs(tutorQuery);
+
+        if (!tutorSnap.empty) {
+          setUserType("tutor");
+          return;
+        }
+
+        console.error("User type could not be determined.");
+      } catch (error) {
+        console.error("Error determining user type:", error);
       }
-    );
+    };
 
-    return () => unsubscribe();
-  }, []);
+    const fetchChatroomData = async () => {
+      try {
+        const chatroomRef = doc(db, "chatrooms", chatroomId);
+        const chatroomSnap = await getDoc(chatroomRef);
 
-  // Scroll to latest message
-  useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+        if (chatroomSnap.exists()) {
+          const chatroomData = chatroomSnap.data();
+          setMessages(chatroomData.messages || []);
 
-  // Send message to Firestore
-  const handleSend = async () => {
-    if (input.trim() === "") {
-      alert("Message cannot be empty!");
-      return;
-    }
+          // Determine the other user's name
+          const otherUserEmail = userEmail === chatroomData.studentId ? chatroomData.tutorId : chatroomData.studentId;
+          
+          // Fetch the other user's name from Firestore
+          const usersRef = collection(db, userEmail === chatroomData.studentId ? "tutors" : "students");
+          const userQuery = query(usersRef, where("email", "==", otherUserEmail));
+          const userSnap = await getDocs(userQuery);
 
-    if (!user) {
-      alert("You must be logged in to send messages.");
-      return;
-    }
+          if (!userSnap.empty) {
+            setOtherUserName(userSnap.docs[0].data().fullName || "Chat");
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching chat messages:", error);
+      }
+    };
+
+    fetchUserType();
+    fetchChatroomData();
+  }, [chatroomId, userEmail]);
+
+  const sendMessage = async () => {
+    if (!newMessage.trim() || !userEmail || !chatroomId) return;
 
     try {
-      await addDoc(collection(db, "messages"), {
-        text: input,
-        sender: user.displayName || user.email || "Anonymous",
-        timestamp: serverTimestamp(),
+      const chatroomRef = doc(db, "chatrooms", chatroomId);
+      await updateDoc(chatroomRef, {
+        messages: arrayUnion({
+          sender: userEmail,
+          content: newMessage,
+          timestamp: new Date().toISOString(),
+        }),
       });
-      setInput(""); // Clear input
+
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { sender: userEmail, content: newMessage, timestamp: new Date().toISOString() },
+      ]);
+
+      setNewMessage(""); // Clear input field
     } catch (error) {
       console.error("Error sending message:", error);
-      alert("Failed to send message. Check console for details.");
     }
   };
 
   return (
-    <div className="container mt-4">
-      <h1>Chat Room</h1>
-      {loading ? (
-        <p>Loading messages...</p>
-      ) : (
-        <div className="chat-box">
-          {messages.map((msg) => (
-            <div
-              key={msg.id}
-              className={`chat-message ${
-                msg.sender === (user?.displayName || user?.email)
-                  ? "text-right"
-                  : "text-left"
-              }`}
-            >
-              <p>
-                <strong>{msg.sender}:</strong> {msg.text}
-              </p>
+    <body className="chatbody">
+    <div className="chatroom-container">
+      <h2 className="chatroom-title">{otherUserName}</h2>
+      <button className="chat-back-button" onClick={() => navigate(-1)}>Go Back</button>
+      
+      <div className="chat-messages">
+        {messages.map((msg, index) => (
+          <div key={index} className={`chat-message ${msg.sender === userEmail ? "student-message" : "tutor-message"}`}>
+            <div className="message-bubble">
+              <strong>{msg.sender === userEmail ? "You" : otherUserName}</strong>
+              <p>{msg.content}</p>
             </div>
-          ))}
-          <div ref={chatEndRef}></div>
-        </div>
-      )}
-
-      <div className="input-group mt-3">
+          </div>
+        ))}
+      </div>
+      
+      <div className="chat-input-container">
         <input
           type="text"
-          className="form-control"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Type your message..."
+          className="chat-input"
+          placeholder="Type a message..."
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
         />
-        <button className="btn btn-primary" onClick={handleSend}>
-          Send
-        </button>
+        <button className="chat-send-button" onClick={sendMessage}>Send</button>
       </div>
     </div>
+    </body>
   );
 };
 
-export default TuteeChatRoom;
+export default ChatRoom;
