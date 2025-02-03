@@ -1,27 +1,67 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "../database/firebaseConfig";
+import Cookies from "js-cookie";
 import SearchBar from "../components/SearchBar";
 import AccountWidget from "../components/AccountWidget";
 import NavBar from "../components/NavBar";
 import "../components/styles/LoginHomepage.css";
 
+interface Lesson {
+  id: string;
+  subject: string;
+  tutor: string;
+  date: string;
+  location: string;
+  contact: string;
+  status: string;
+}
+
 const StudentHomepage: React.FC = () => {
-  const [schedule, setSchedule] = useState([
-    { subject: "Math", tutor: "Mr. Smith", date: "2025-02-05", location: "Room 101", contact: "123-456", status: "Pending" },
-    { subject: "Physics", tutor: "Ms. Doe", date: "2025-02-06", location: "Room 102", contact: "789-012", status: "Confirmed" },
-  ]);
+  const [schedule, setSchedule] = useState<Lesson[]>([]);
+  const userEmail = Cookies.get("userEmail");
+
+  useEffect(() => {
+    const fetchSchedule = async () => {
+      if (!userEmail) return;
+
+      try {
+        const lessonsRef = collection(db, "lessons");
+        const q = query(lessonsRef, where("studentEmail", "==", userEmail));
+        const querySnapshot = await getDocs(q);
+
+        const studentLessons: Lesson[] = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        })) as Lesson[];
+
+        setSchedule(studentLessons);
+      } catch (error) {
+        console.error("Error fetching student schedule:", error);
+      }
+    };
+
+    fetchSchedule();
+  }, [userEmail]);
 
   return (
     <div className="homepage">
-      <div className="d-flex justify-content-between" style={{ backgroundColor: "#B2D8E9" }}>
+      <div
+        className="d-flex justify-content-between"
+        style={{ backgroundColor: "#B2D8E9" }}
+      >
         <SearchBar />
-        <h2 className="title" style={{ fontSize: "60px", fontWeight: "bold", marginTop: "15px" }}>TutorGo</h2>
+        <h2
+          className="title"
+          style={{ fontSize: "60px", fontWeight: "bold", marginTop: "15px" }}
+        >
+          TutorGo
+        </h2>
         <AccountWidget />
       </div>
       <NavBar />
       <h1 className="scheduleheader">Your Schedule</h1>
-      <br />
-      <br />
+
       <div className="schedulecontainer">
         <table className="scheduletable">
           <thead>
@@ -35,8 +75,8 @@ const StudentHomepage: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {schedule.map((row, index) => (
-              <tr key={index}>
+            {schedule.map((row) => (
+              <tr key={row.id}>
                 <td>{row.subject}</td>
                 <td>{row.tutor}</td>
                 <td>{row.date}</td>
@@ -48,7 +88,10 @@ const StudentHomepage: React.FC = () => {
           </tbody>
         </table>
       </div>
-      <Link to="/find-tutor" className="schedule-button">Schedule Sessions</Link>
+
+      <a href="/find-tutor" className="schedule-button">
+        Find New Tutors
+      </a>
     </div>
   );
 };
