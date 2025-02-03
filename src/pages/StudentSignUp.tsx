@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // 🚀 Import useNavigate for redirection
+import { useNavigate } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
-import { db } from "../database/firebaseConfig"; // Firestore config
+import { db } from "../database/firebaseConfig";
+import { uploadProfilePicture } from "../utils/s3Upload"; // ✅ Import AWS S3 upload function
 import "../components/styles/Login.css";
 import WelcomeSection from "../components/WelcomeSection";
 
 const StudentSignUp: React.FC = () => {
-  const navigate = useNavigate(); // ✅ Initialize navigation hook
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState<{
     email: string;
@@ -22,48 +23,67 @@ const StudentSignUp: React.FC = () => {
     location: "",
   });
 
+  const [selectedFile, setSelectedFile] = useState<File | null>(null); // ✅ Declare state for file
   const [error, setError] = useState("");
 
-  // Handle input changes for text fields
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  // ✅ Handle input changes for text fields
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle checkboxes for subject selection
+  // ✅ Handle checkboxes for subject selection
   const handleSubjectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       subjects: checked
-        ? [...prevData.subjects, value] // Add subject if checked
-        : prevData.subjects.filter((subject) => subject !== value), // Remove if unchecked
+        ? [...prevData.subjects, value]
+        : prevData.subjects.filter((subject) => subject !== value),
     }));
   };
 
+  // ✅ Handle file selection
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setSelectedFile(e.target.files[0]);
+    }
+  };
+
+  // ✅ Handle form submission
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
 
-    try {
-      console.log("🚀 Form submission triggered!");
+    if (!selectedFile) {
+      alert("❌ Please upload a profile picture.");
+      return;
+    }
 
-      // ✅ Write data directly to Firestore in "students" collection
+    try {
+      console.log("🚀 Uploading profile picture to S3...");
+
+      // ✅ Upload profile picture & get S3 URL
+      const imageUrl = await uploadProfilePicture(selectedFile, formData.email);
+      console.log("✅ Image uploaded successfully:", imageUrl);
+
+      // ✅ Add student data to Firestore
       await addDoc(collection(db, "students"), {
         email: formData.email,
-        password: formData.password, // Consider removing this for security
+        password: formData.password,
         subjects: formData.subjects,
         levels: formData.levels,
         location: formData.location,
+        photo: imageUrl, // ✅ Store S3 URL in Firestore
         createdAt: new Date(),
       });
 
       alert("✅ Student registered successfully!");
-
-      // 🚀 Redirect user to the Login page
       navigate("/LoginMain");
     } catch (err) {
-      setError("❌ Error: " + (err as Error).message);
       console.error("❌ Firestore error:", err);
+      setError("❌ Failed to register. Please try again.");
     }
   };
 
@@ -102,21 +122,28 @@ const StudentSignUp: React.FC = () => {
             </div>
 
             <div className="input-group">
+              <label className="input-label">Profile Picture</label>
+              <input type="file" accept="image/*" onChange={handleFileChange} />
+            </div>
+
+            <div className="input-group">
               <label className="input-label">Subjects</label>
               <div className="checkbox-group">
-                {["English", "Mathematics", "Science", "Humanities"].map((subj) => (
-                  <label key={subj}>
-                    <input
-                      type="checkbox"
-                      name="subjects"
-                      value={subj}
-                      className="input-field"
-                      checked={formData.subjects.includes(subj)}
-                      onChange={handleSubjectChange}
-                    />{" "}
-                    {subj}
-                  </label>
-                ))}
+                {["English", "Mathematics", "Science", "Humanities"].map(
+                  (subj) => (
+                    <label key={subj}>
+                      <input
+                        type="checkbox"
+                        name="subjects"
+                        value={subj}
+                        className="input-field"
+                        checked={formData.subjects.includes(subj)}
+                        onChange={handleSubjectChange}
+                      />{" "}
+                      {subj}
+                    </label>
+                  )
+                )}
               </div>
             </div>
 

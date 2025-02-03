@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.740.0",
     "bootstrap": "^5.2.3",
     "emailjs-com": "^3.2.0",
     "firebase": "^11.2.0",

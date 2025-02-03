@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // 🚀 Import useNavigate for redirection
+import { useNavigate } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
-import { db } from "../database/firebaseConfig"; // Firestore config
+import { db } from "../database/firebaseConfig";
+import { uploadProfilePicture } from "../utils/s3Upload"; // ✅ Import S3 Upload Function
 import "../components/styles/Login.css";
 import WelcomeSection from "../components/WelcomeSection";
 
 const TutorSignUp: React.FC = () => {
-  const navigate = useNavigate(); // ✅ Initialize navigation hook
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState<{
     email: string;
@@ -28,10 +29,13 @@ const TutorSignUp: React.FC = () => {
     bio: "",
   });
 
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [error, setError] = useState("");
 
   // Handle text input changes
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -46,7 +50,22 @@ const TutorSignUp: React.FC = () => {
     }));
   };
 
-  // Handle form submission
+  // ✅ Handle File Selection
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+
+      // ✅ Ensure it's an image file before setting state
+      if (!file.type.startsWith("image/")) {
+        alert("Please select a valid image file.");
+        return;
+      }
+
+      setSelectedFile(file);
+    }
+  };
+
+  // ✅ Handle Form Submission
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
@@ -54,21 +73,42 @@ const TutorSignUp: React.FC = () => {
     try {
       console.log("🚀 Tutor form submission triggered!");
 
+      let imageUrl = "/images/user.png"; // Default Profile Picture
+
+      // ✅ Upload profile picture to S3 if a file is selected
+      if (selectedFile) {
+        try {
+          const uploadedUrl = await uploadProfilePicture(
+            selectedFile,
+            formData.email
+          );
+          if (uploadedUrl) {
+            imageUrl = uploadedUrl; // ✅ Use the uploaded image URL
+          } else {
+            throw new Error("Image upload failed.");
+          }
+        } catch (uploadError) {
+          console.error("❌ Image upload failed:", uploadError);
+          setError("Image upload failed. Please try again.");
+          return;
+        }
+      }
+
       // ✅ Write data to Firestore in the "tutors" collection
       await addDoc(collection(db, "tutors"), {
         email: formData.email,
-        password: formData.password, // Consider removing this for security
+        password: formData.password,
         fullName: formData.fullName,
         nric: formData.nric,
         subjects: formData.subjects,
         levels: formData.levels,
         location: formData.location,
         bio: formData.bio,
+        photo: imageUrl, // ✅ Store S3 URL or default profile picture
         createdAt: new Date(),
       });
 
       alert("✅ Tutor registered successfully!");
-      // 🚀 Redirect user to Login page
       navigate("/LoginMain");
     } catch (err) {
       setError("❌ Error: " + (err as Error).message);
@@ -124,6 +164,11 @@ const TutorSignUp: React.FC = () => {
             </div>
 
             <div className="input-group">
+              <label className="input-label">Profile Picture</label>
+              <input type="file" accept="image/*" onChange={handleFileChange} />
+            </div>
+
+            <div className="input-group">
               <label className="input-label">NRIC</label>
               <input
                 type="text"
@@ -139,19 +184,21 @@ const TutorSignUp: React.FC = () => {
             <div className="input-group">
               <label className="input-label">Subjects Taught</label>
               <div className="checkbox-group">
-                {["English", "Mathematics", "Science", "Humanities"].map((subj) => (
-                  <label key={subj}>
-                    <input
-                      type="checkbox"
-                      name="subjects"
-                      value={subj}
-                      className="input-field"
-                      checked={formData.subjects.includes(subj)}
-                      onChange={handleSubjectChange}
-                    />{" "}
-                    {subj}
-                  </label>
-                ))}
+                {["English", "Mathematics", "Science", "Humanities"].map(
+                  (subj) => (
+                    <label key={subj}>
+                      <input
+                        type="checkbox"
+                        name="subjects"
+                        value={subj}
+                        className="input-field"
+                        checked={formData.subjects.includes(subj)}
+                        onChange={handleSubjectChange}
+                      />{" "}
+                      {subj}
+                    </label>
+                  )
+                )}
               </div>
             </div>
 
