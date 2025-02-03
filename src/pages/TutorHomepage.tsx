@@ -5,7 +5,7 @@ import AccountWidget from "../components/AccountWidget";
 import NavBar from "../components/NavBar";
 import "../components/styles/LoginHomepage.css";
 
-const StudentHomepage: React.FC = () => {
+const TutorHomepage: React.FC = () => {
   const [schedule, setSchedule] = useState([
     { subject: "Math", tutor: "Mr. Smith", date: "2025-02-05", location: "Room 101", contact: "123-456", status: "Pending" },
     { subject: "Physics", tutor: "Ms. Doe", date: "2025-02-06", location: "Room 102", contact: "789-012", status: "Confirmed" },
@@ -19,7 +19,7 @@ const StudentHomepage: React.FC = () => {
         <AccountWidget />
       </div>
       <NavBar />
-      <h1 className="scheduleheader">Your Schedule</h1>
+      <h1 className="scheduleheader">Upcoming Lessons</h1>
       <br />
       <br />
       <div className="schedulecontainer">
@@ -27,7 +27,7 @@ const StudentHomepage: React.FC = () => {
           <thead>
             <tr className="tableheader">
               <th>Subject</th>
-              <th>Tutor</th>
+              <th>Student</th>
               <th>Date</th>
               <th>Location</th>
               <th>Contact</th>
@@ -48,9 +48,9 @@ const StudentHomepage: React.FC = () => {
           </tbody>
         </table>
       </div>
-      <Link to="/find-tutor" className="schedule-button">Schedule Sessions</Link>
+      <Link to="/find-tutor" className="schedule-button">Create Lesson</Link>
     </div>
   );
 };
 
-export default StudentHomepage;
+export default TutorHomepage;
