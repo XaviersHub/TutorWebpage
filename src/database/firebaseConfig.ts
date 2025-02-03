@@ -4,12 +4,13 @@ import { getAnalytics } from "firebase/analytics";
 
 // Firebase configuration using Vite's environment variable syntax
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID
+  apiKey: "AIzaSyCuT8vN5qJ9RHWi1LV9Hlt_91d4eIgNU9c",
+  authDomain: "tutorapp-28cc8.firebaseapp.com",
+  projectId: "tutorapp-28cc8",
+  storageBucket: "tutorapp-28cc8.firebasestorage.app",
+  messagingSenderId: "570000210952",
+  appId: "1:570000210952:web:408530fcf47ff41c3f25bd",
+  measurementId: "G-J1QPFKSF01"
 };
 
 // Initialize Firebase
