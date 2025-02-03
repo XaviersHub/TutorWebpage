@@ -35,7 +35,7 @@ const TutorHomepage: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {schedule.map((row, index) => (
+            {schedule.map((row, index) => ( 
               <tr key={index}>
                 <td>{row.subject}</td>
                 <td>{row.tutor}</td>

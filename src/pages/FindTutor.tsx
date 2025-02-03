@@ -1,46 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { db } from "../database/firebaseConfig"; // Firestore config
+import { collection, getDocs } from "firebase/firestore"; // Firestore methods
 import SearchBar from "../components/SearchBar";
 import AccountWidget from "../components/AccountWidget";
 import NavBar from "../components/NavBar";
+import { useNavigate } from "react-router-dom";
 
-const tutors = [
-  {
-    id: 1,
-    photo: "https://i.ibb.co/wrp20vfk/tutor1.jpg",
-    name: "John Doe",
-    subject: "Mathematics",
-    level: "Sec 4",
-    rating: 4,
-  },
-  {
-    id: 2,
-    photo: "https://i.ibb.co/3qqRx4J/tutor2.jpg",
-    name: "Sarah Lee",
-    subject: "Chemistry",
-    level: "Sec 3",
-    rating: 5,
-  },
-  {
-    id: 3,
-    photo: "https://i.ibb.co/WWBdH3mf/image.png",
-    name: "Michael Tan",
-    subject: "Physics",
-    level: "Sec 4",
-    rating: 4,
-  },
-  {
-    id: 4,
-    photo: "https://i.ibb.co/Lz704P1Q/tutor4.webp",
-    name: "Priya Sharma",
-    subject: "English",
-    level: "Sec 2",
-    rating: 3,
-  },
-];
+interface Tutor {
+  id: string;
+  fullName: string;
+  subjects: string[];
+  levels: string;
+  location: string;
+  email: string;
+}
 
 const FindTutor = () => {
+  const [tutors, setTutors] = useState<Tutor[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchTutors = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "tutors"));
+        const tutorList = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        })) as Tutor[];
+        setTutors(tutorList);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching tutors:", error);
+        setError("Failed to fetch tutor profiles. Please try again.");
+        setLoading(false);
+      }
+    };
+
+    fetchTutors();
+  }, []);
+
+  if (loading) return <p>Loading tutors...</p>;
+  if (error) return <p className="text-danger">{error}</p>;
+
   return (
     <div>
+      {/* Header Section */}
       <div
         className="d-flex justify-content-between"
         style={{ backgroundColor: "#BDEDF2" }}
@@ -50,18 +56,21 @@ const FindTutor = () => {
         <AccountWidget />
       </div>
       <NavBar />
+
+      {/* Main Content */}
       <div className="container mt-4">
-        <h1 className="mb-4">Profiles</h1>
+        <h1 className="mb-4">Find a Tutor</h1>
+
         <div className="table-responsive">
           <table className="table table-bordered">
             <thead style={{ backgroundColor: "#BDEDF2" }}>
               <tr>
-                <th>Photo</th>
                 <th>Name</th>
-                <th>Subject</th>
+                <th>Subjects</th>
                 <th>Level</th>
-                <th>Rating</th>
-                <th>Full Profile</th>
+                <th>Location</th>
+                <th>Email</th>
+                <th>Profile</th>
               </tr>
             </thead>
             <tbody>
@@ -70,26 +79,19 @@ const FindTutor = () => {
                   key={tutor.id}
                   style={{ backgroundColor: "#7EAAC9", color: "black" }}
                 >
+                  <td>{tutor.fullName}</td>
+                  <td>{tutor.subjects.join(", ")}</td>
+                  <td>{tutor.levels}</td>
+                  <td>{tutor.location}</td>
                   <td>
-                    <img
-                      src={tutor.photo}
-                      alt={tutor.name}
-                      className="rounded"
-                      style={{ width: "80px", height: "80px" }}
-                    />
-                  </td>
-                  <td>{tutor.name}</td>
-                  <td>{tutor.subject}</td>
-                  <td>{tutor.level}</td>
-                  <td>
-                    {"★".repeat(tutor.rating) + "☆".repeat(5 - tutor.rating)}
+                    <a href={`mailto:${tutor.email}`}>{tutor.email}</a>
                   </td>
                   <td>
                     <button
                       className="btn btn-info"
-                      onClick={() => alert(`Contacting ${tutor.name}`)}
+                      onClick={() => navigate(`/tutor-profile/${tutor.id}`)}
                     >
-                      Contact
+                      View Profile
                     </button>
                   </td>
                 </tr>

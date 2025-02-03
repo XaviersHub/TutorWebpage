@@ -1,0 +1,20 @@
+.chat-box {
+    border: 1px solid #ccc;
+    padding: 15px;
+    height: 400px;
+    overflow-y: scroll;
+    background: #f9f9f9;
+  }
+  
+  .input-group {
+    display: flex;
+  }
+  
+  .input-group input {
+    flex-grow: 1;
+    padding: 10px;
+  }
+  
+  .input-group button {
+    margin-left: 10px;
+  }
