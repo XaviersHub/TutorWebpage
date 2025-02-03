@@ -9,7 +9,7 @@ import StudentLogin from "./StudentLogin";
 import StudentSignUp from "./StudentSignUp";
 import LoginMain from "./LoginMain";
 import TutorLogin from "./TutorLogin";
-import TutorSignUp from "./TutorSignup";
+import TutorSignUp from "./TutorSignUp";
 const FindATutor = React.lazy(() => import("./FindTutor"));
 const BecomeATutor = React.lazy(() => import("./BecomeTutor"));
 
