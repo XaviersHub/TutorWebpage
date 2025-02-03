@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ Import for navigation
-import { collection, query, where, getDocs } from "firebase/firestore"; // ✅ Firestore queries
-import { db } from "../database/firebaseConfig"; // ✅ Import Firebase config
+import { useNavigate } from "react-router-dom";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "../database/firebaseConfig";
+import Cookies from "js-cookie"; // ✅ Import js-cookie
 import "../components/styles/Login.css";
 import WelcomeSection from "../components/WelcomeSection";
 
 const StudentLogin = () => {
-  const navigate = useNavigate(); // ✅ Navigation for redirect
-
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -19,7 +19,6 @@ const StudentLogin = () => {
     try {
       console.log("🚀 Checking Firestore for student credentials...");
 
-      // ✅ Query Firestore for student by email
       const studentsRef = collection(db, "students");
       const q = query(studentsRef, where("email", "==", email));
       const querySnapshot = await getDocs(q);
@@ -31,7 +30,6 @@ const StudentLogin = () => {
 
       let userFound = false;
 
-      // Loop through results and validate password
       querySnapshot.forEach((doc) => {
         const userData = doc.data();
         console.log("✅ Found Student Data:", userData);
@@ -39,10 +37,14 @@ const StudentLogin = () => {
         if (userData.password === password) {
           console.log("✅ Password matches! Logging in...");
           userFound = true;
-
+        
+          // ✅ Store email in cookies (expires in 1 day)
+          Cookies.set("userEmail", userData.email, { expires: 1 });
+        
           alert("✅ Login successful!");
-          navigate("/StudentHomepage"); // ✅ Redirect to find-tutor
+          navigate("/StudentHomepage");
         }
+        
       });
 
       if (!userFound) {
@@ -57,7 +59,6 @@ const StudentLogin = () => {
   return (
     <div className="login-container">
       <div className="login-box">
-        {/* Sign-in Section */}
         <div className="signin-section">
           <h2 className="signin-title">STUDENT SIGN IN</h2>
           {error && <p className="error-message">{error}</p>}
