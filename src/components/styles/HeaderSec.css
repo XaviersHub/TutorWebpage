@@ -14,11 +14,12 @@
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    margin-right: 200px;
+    margin-right: 50px;
+    margin-top: 5px;
 }
 .custom-margin {
-    margin-top: 60px;  /* Adjust as needed */
-    margin-left: 0px;
+    margin-top: 50px;  /* Adjust as needed */
+    margin-left: 70px;
     text-align: left;
 }
 .buttoncontainer {

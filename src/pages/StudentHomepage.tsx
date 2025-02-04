@@ -11,38 +11,82 @@ interface Lesson {
   id: string;
   subject: string;
   tutor: string;
+  tutorEmail: string;
   date: string;
+  time: string;
   location: string;
   contact: string;
-  status: string;
+  isPublic: boolean;
+  students: string[];
 }
 
 const StudentHomepage: React.FC = () => {
   const [schedule, setSchedule] = useState<Lesson[]>([]);
+  const [followingTutors, setFollowingTutors] = useState<string[]>([]);
   const userEmail = Cookies.get("userEmail");
 
   useEffect(() => {
-    const fetchSchedule = async () => {
+    const fetchFollowingTutors = async () => {
       if (!userEmail) return;
 
       try {
-        const lessonsRef = collection(db, "lessons");
-        const q = query(lessonsRef, where("studentEmail", "==", userEmail));
+        const studentRef = collection(db, "students");
+        const q = query(studentRef, where("email", "==", userEmail));
         const querySnapshot = await getDocs(q);
 
-        const studentLessons: Lesson[] = querySnapshot.docs.map((doc) => ({
+        if (!querySnapshot.empty) {
+          const studentData = querySnapshot.docs[0].data();
+          console.log("👀 Fetched Following Tutors:", studentData.following);
+          setFollowingTutors(studentData.following || []);
+        }
+      } catch (error) {
+        console.error("❌ Error fetching followed tutors:", error);
+      }
+    };
+
+    fetchFollowingTutors();
+  }, [userEmail]);
+
+  useEffect(() => {
+    const fetchSchedule = async () => {
+      if (!userEmail || followingTutors.length === 0) {
+        console.warn("⚠️ No tutors followed yet.");
+        return;
+      }
+
+      try {
+        const lessonsRef = collection(db, "lessons");
+        const q = query(lessonsRef);
+        const querySnapshot = await getDocs(q);
+
+        const allLessons: Lesson[] = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         })) as Lesson[];
 
+        console.log("📚 All Lessons Fetched:", allLessons);
+
+        const studentLessons: Lesson[] = allLessons.filter(
+          (lesson) =>
+            lesson.students.includes(userEmail) ||
+            (lesson.isPublic && followingTutors.includes(lesson.tutorEmail))
+        );
+
+        console.log("✅ Filtered Lessons for Student:", studentLessons);
         setSchedule(studentLessons);
       } catch (error) {
-        console.error("Error fetching student schedule:", error);
+        console.error("❌ Error fetching student schedule:", error);
       }
     };
 
     fetchSchedule();
-  }, [userEmail]);
+
+    const handleFollowUpdate = () => fetchSchedule();
+    window.addEventListener("follow-updated", handleFollowUpdate);
+
+    return () =>
+      window.removeEventListener("follow-updated", handleFollowUpdate);
+  }, [userEmail, followingTutors]);
 
   return (
     <div className="homepage">
@@ -69,22 +113,30 @@ const StudentHomepage: React.FC = () => {
               <th>Subject</th>
               <th>Tutor</th>
               <th>Date</th>
+              <th>Time</th>
               <th>Location</th>
               <th>Contact</th>
-              <th>Status</th>
             </tr>
           </thead>
           <tbody>
-            {schedule.map((row) => (
-              <tr key={row.id}>
-                <td>{row.subject}</td>
-                <td>{row.tutor}</td>
-                <td>{row.date}</td>
-                <td>{row.location}</td>
-                <td>{row.contact}</td>
-                <td>{row.status}</td>
+            {schedule.length > 0 ? (
+              schedule.map((row) => (
+                <tr key={row.id}>
+                  <td>{row.subject}</td>
+                  <td>{row.tutor}</td>
+                  <td>{row.date}</td>
+                  <td>{row.time}</td>
+                  <td>{row.location}</td>
+                  <td>{row.contact}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={6} style={{ textAlign: "center" }}>
+                  No upcoming lessons.
+                </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

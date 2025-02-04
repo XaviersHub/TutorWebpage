@@ -10,22 +10,24 @@ import "../components/styles/LoginHomepage.css";
 interface Lesson {
   id: string;
   subject: string;
-  student: string;
   date: string;
+  time: string;
   location: string;
   contact: string;
-  status: string;
+  students: string[]; // Array of students attending the lesson
+  isPublic: boolean;
 }
 
 const TutorHomepage: React.FC = () => {
   const [schedule, setSchedule] = useState<Lesson[]>([]);
   const [newLesson, setNewLesson] = useState({
     subject: "",
-    student: "",
     date: "",
+    time: "",
     location: "",
     contact: "",
-    status: "Pending",
+    studentEmail: "", // Only needed for private lessons
+    isPublic: false, // Default to private
   });
 
   const userEmail = Cookies.get("userEmail");
@@ -58,19 +60,33 @@ const TutorHomepage: React.FC = () => {
     if (!userEmail) return;
 
     try {
-      await addDoc(collection(db, "lessons"), {
+      const newLessonData = {
         tutorEmail: userEmail,
-        ...newLesson,
-      });
+        tutor: userEmail,
+        subject: newLesson.subject,
+        date: newLesson.date,
+        time: newLesson.time,
+        location: newLesson.location,
+        contact: newLesson.contact,
+        students: newLesson.isPublic ? [] : [newLesson.studentEmail],
+        isPublic: newLesson.isPublic,
+      };
+
+      const docRef = await addDoc(collection(db, "lessons"), newLessonData);
+      const newLessonWithId = { id: docRef.id, ...newLessonData };
+
+      // ✅ Update the UI immediately without needing a page refresh
+      setSchedule((prevSchedule) => [...prevSchedule, newLessonWithId]);
 
       alert("✅ Lesson added successfully!");
       setNewLesson({
         subject: "",
-        student: "",
         date: "",
+        time: "",
         location: "",
         contact: "",
-        status: "Pending",
+        studentEmail: "",
+        isPublic: false,
       });
     } catch (error) {
       console.error("❌ Error adding lesson:", error);
@@ -79,50 +95,41 @@ const TutorHomepage: React.FC = () => {
 
   return (
     <div className="homepage">
-      <div
-        className="d-flex justify-content-between"
-        style={{ backgroundColor: "#B2D8E9" }}
-      >
-        <SearchBar />
-        <h2
-          className="title"
-          style={{ fontSize: "60px", fontWeight: "bold", marginTop: "15px" }}
-        >
-          TutorGo
-        </h2>
-        <AccountWidget />
-      </div>
+      {/*<SearchBar />*/}
+      <AccountWidget />
       <NavBar />
       <h1 className="scheduleheader">Your Teaching Schedule</h1>
 
       <div className="schedulecontainer">
         <table className="scheduletable">
           <thead>
-            <tr className="tableheader">
+            <tr>
               <th>Subject</th>
-              <th>Student</th>
               <th>Date</th>
+              <th>Time</th>
               <th>Location</th>
               <th>Contact</th>
-              <th>Status</th>
+              <th>Students</th>
             </tr>
           </thead>
           <tbody>
             {schedule.map((row) => (
               <tr key={row.id}>
                 <td>{row.subject}</td>
-                <td>{row.student}</td>
                 <td>{row.date}</td>
+                <td>{row.time}</td>
                 <td>{row.location}</td>
                 <td>{row.contact}</td>
-                <td>{row.status}</td>
+                <td>{row.isPublic ? "Public" : row.students.join(", ")}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      <div>
-        {/* Add New Lesson */}
+
+      {/* Add Lesson Form */}
+      <div className="form-container">
+        <h1 className="scheduleheader2">Create Schedule</h1>
         <form onSubmit={handleAddLesson} className="lesson-form">
           <input
             type="text"
@@ -134,19 +141,18 @@ const TutorHomepage: React.FC = () => {
             required
           />
           <input
-            type="text"
-            placeholder="Student Name"
-            value={newLesson.student}
-            onChange={(e) =>
-              setNewLesson({ ...newLesson, student: e.target.value })
-            }
-            required
-          />
-          <input
             type="date"
             value={newLesson.date}
             onChange={(e) =>
               setNewLesson({ ...newLesson, date: e.target.value })
+            }
+            required
+          />
+          <input
+            type="time"
+            value={newLesson.time}
+            onChange={(e) =>
+              setNewLesson({ ...newLesson, time: e.target.value })
             }
             required
           />
@@ -168,6 +174,30 @@ const TutorHomepage: React.FC = () => {
             }
             required
           />
+
+          <label>
+            <input
+              type="checkbox"
+              checked={newLesson.isPublic}
+              onChange={(e) =>
+                setNewLesson({ ...newLesson, isPublic: e.target.checked })
+              }
+            />
+            Public Lesson
+          </label>
+
+          {!newLesson.isPublic && (
+            <input
+              type="email"
+              placeholder="Student Email"
+              value={newLesson.studentEmail}
+              onChange={(e) =>
+                setNewLesson({ ...newLesson, studentEmail: e.target.value })
+              }
+              required
+            />
+          )}
+
           <button type="submit">Add Lesson</button>
         </form>
       </div>
