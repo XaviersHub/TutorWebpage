@@ -77,6 +77,7 @@ const TutorProfile = () => {
         const studentSnap = await getDoc(studentRef);
 
         if (studentSnap.exists()) {
+          const studentData = studentSnap.data();
           setIsFollowing(studentSnap.data().following?.includes(tutor.email));
         }
       } catch (error) {
