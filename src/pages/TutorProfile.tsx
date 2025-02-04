@@ -96,14 +96,15 @@ const TutorProfile = () => {
       const q = query(studentsRef, where("email", "==", userEmail));
       const querySnapshot = await getDocs(q);
 
-      let studentRef;
       if (querySnapshot.empty) {
-        console.warn("Student document does not exist. Creating new student record...");
-        studentRef = doc(studentsRef, userEmail);
-        await setDoc(studentRef, { following: [] }); // Create a new student doc
-      } else {
-        studentRef = doc(db, "students", querySnapshot.docs[0].id);
+        console.warn(
+          "Student document does not exist. Creating new student record..."
+        );
+        return;
       }
+
+      const studentDoc = querySnapshot.docs[0]; // ✅ Get the first matching document
+      const studentRef = doc(db, "students", studentDoc.id); // ✅ Use its ID
 
       if (isFollowing) {
         await updateDoc(studentRef, {
