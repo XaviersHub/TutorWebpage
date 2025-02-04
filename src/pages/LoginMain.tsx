@@ -23,7 +23,7 @@ const LoginMain = () => {
       </button>
       <div className="login-box">
         {/* Sign-in Section */}
-        <div className="signin-section">
+        <div className="signin-section2">
           <h2 className="signin-title">SELECT LOGIN TYPE</h2>
           <div className="">
             <Link to="/StudentLogin">
