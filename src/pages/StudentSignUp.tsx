@@ -172,6 +172,20 @@ const StudentSignUp: React.FC = () => {
                 required
               />
             </div>
+            <button
+              className="btn btn-secondary back-button"
+              onClick={() => navigate(-1)}
+              style={{
+                position: "absolute",
+                top: "10px",
+                left: "10px",
+                padding: "5px 10px",
+                borderRadius: "5px",
+                cursor: "pointer",
+              }}
+            >
+              ⬅ Back
+            </button>
 
             <button type="submit" className="login-button">
               SIGN UP

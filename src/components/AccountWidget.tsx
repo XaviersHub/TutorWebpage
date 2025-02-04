@@ -18,7 +18,7 @@ const AccountWidget: React.FC = () => {
   const handleLogout = () => {
     Cookies.remove("userEmail"); // Remove email from cookies
     setUserEmail(null); // Update UI state
-    window.location.reload(); // Refresh page to reflect changes
+    window.location.href = "/"; // Refresh page to reflect changes
   };
 
   return (
@@ -29,7 +29,11 @@ const AccountWidget: React.FC = () => {
       {userEmail ? (
         <div className="d-flex align-items-center">
           <span className="nav-link accountwidget">{userEmail}</span>
-          <button onClick={handleLogout} className="logout-button" style={logoutButtonStyle}>
+          <button
+            onClick={handleLogout}
+            className="logout-button"
+            style={logoutButtonStyle}
+          >
             Logout
           </button>
         </div>

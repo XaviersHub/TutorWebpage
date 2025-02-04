@@ -4,13 +4,15 @@
     background-color: azure;
     border-radius: 10px;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
-    position: relative; /* Changed from absolute to relative */
-    left: 5%;
+    position: absolute;
+    left: 27%;
+    top:33%;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     padding: 20px;
     overflow: auto; /* Allows scrolling if content overflows */
+    
 }
 
 
@@ -23,6 +25,7 @@
     background-color: lightgray;
     padding: 10px;
     text-align: left;
+    
 }
 
 .scheduletable td {
@@ -32,10 +35,19 @@
 
 .scheduleheader {
     position:absolute;
-    left: 5%;
+    left: 50px;
+    top: 210px;
+    font-family: IBM_Plex_Serif;
+    font-weight: bold;
+}
+.scheduleheader2 {
+    position:absolute;
+    left: 50px;
+    top: 210px;
+    font-family: IBM_Plex_Serif;
+    font-weight: bold;
 }
 .schedule-button {
-    display: block; /* Ensures it takes full width available */
     width: fit-content; /* Adjusts width based on content */
     padding: 10px 20px;
     margin-top: 20px; /* Adds spacing from the table */
@@ -43,9 +55,42 @@
     color: white;
     text-decoration: none;
     border-radius: 5px;
-    position: absolute;
-    left:50%;
+    position: relative;
     font-size: 18px;
     text-align: center;
     transition: background-color 0.3s;
+}
+
+.form-container {
+    width: 250px; /* Set the width */
+    margin: 0 auto; /* Center the container horizontally */
+    padding: 20px;
+    margin-left: 70px;
+    margin-top: 50px;
+    background-color: #e3fbff; /* Light background color */
+    border-radius: 20px; /* Rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
+ }
+  .lesson-form {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+   margin-top: 10px;
+    gap: 15px; /* Space between the inputs */
+  }
+
+@font-face {
+    font-family: IBM_Plex_Serif ;
+    src: url(/src/assets/fonts/IBMPlexSerif-Regular.ttf);
+}
+.IBM_Plex_Serif{
+    font-family: IBM_Plex_Serif;
+}
+@font-face {
+    font-family: Montserrat;
+    src: url(C:\Users\frinz\Downloads\TutorWebpage-homepage-setup\TutorWebpage-homepage-setup\public\Montserrat\Montserrat-VariableFont_wght.ttf);
+}
+.Montserrat{
+    font-family: Montserrat;
+    font-size: 100px;
 }
