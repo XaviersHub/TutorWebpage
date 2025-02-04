@@ -10,12 +10,14 @@ const StudentSignUp: React.FC = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState<{
+    name: string;
     email: string;
     password: string;
     subjects: string[];
     levels: string;
     location: string;
   }>({
+    name:"",
     email: "",
     password: "",
     subjects: [],
@@ -70,6 +72,7 @@ const StudentSignUp: React.FC = () => {
 
       // ✅ Add student data to Firestore
       await addDoc(collection(db, "students"), {
+        name: formData.name,
         email: formData.email,
         password: formData.password,
         subjects: formData.subjects,
@@ -103,6 +106,19 @@ const StudentSignUp: React.FC = () => {
                 className="input-field"
                 placeholder="Enter your email"
                 value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="input-group">
+              <label className="input-label">Name</label>
+              <input
+                type="name"
+                name="name"
+                className="input-field"
+                placeholder="Enter your name"
+                value={formData.name}
                 onChange={handleChange}
                 required
               />
