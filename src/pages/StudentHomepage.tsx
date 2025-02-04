@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  onSnapshot,
+} from "firebase/firestore";
 import { db } from "../database/firebaseConfig";
 import Cookies from "js-cookie";
 import SearchBar from "../components/SearchBar";
@@ -25,6 +31,9 @@ const StudentHomepage: React.FC = () => {
   const [followingTutors, setFollowingTutors] = useState<string[]>([]);
   const userEmail = Cookies.get("userEmail");
 
+  /**
+   * ✅ Fetch the list of tutors that the student is following
+   */
   useEffect(() => {
     const fetchFollowingTutors = async () => {
       if (!userEmail) return;
@@ -38,6 +47,8 @@ const StudentHomepage: React.FC = () => {
           const studentData = querySnapshot.docs[0].data();
           console.log("👀 Fetched Following Tutors:", studentData.following);
           setFollowingTutors(studentData.following || []);
+        } else {
+          console.warn("⚠️ No student document found.");
         }
       } catch (error) {
         console.error("❌ Error fetching followed tutors:", error);
@@ -45,8 +56,18 @@ const StudentHomepage: React.FC = () => {
     };
 
     fetchFollowingTutors();
+
+    // ✅ Listen for follow updates
+    const handleFollowUpdate = () => fetchFollowingTutors();
+    window.addEventListener("follow-updated", handleFollowUpdate);
+
+    return () =>
+      window.removeEventListener("follow-updated", handleFollowUpdate);
   }, [userEmail]);
 
+  /**
+   * ✅ Fetch lessons in real-time and update schedule dynamically
+   */
   useEffect(() => {
     const fetchSchedule = async () => {
       if (!userEmail || followingTutors.length === 0) {
@@ -66,10 +87,12 @@ const StudentHomepage: React.FC = () => {
 
         console.log("📚 All Lessons Fetched:", allLessons);
 
+        // ✅ Ensure 'students' and 'tutorEmail' are defined, otherwise default to an empty array
         const studentLessons: Lesson[] = allLessons.filter(
           (lesson) =>
-            lesson.students.includes(userEmail) ||
-            (lesson.isPublic && followingTutors.includes(lesson.tutorEmail))
+            (lesson.students ?? []).includes(userEmail) || // Private lessons
+            (lesson.isPublic &&
+              (followingTutors ?? []).includes(lesson.tutorEmail)) // Public lessons
         );
 
         console.log("✅ Filtered Lessons for Student:", studentLessons);
@@ -81,12 +104,27 @@ const StudentHomepage: React.FC = () => {
 
     fetchSchedule();
 
-    const handleFollowUpdate = () => fetchSchedule();
-    window.addEventListener("follow-updated", handleFollowUpdate);
+    const handleLessonUpdate = () => fetchSchedule();
+    window.addEventListener("lesson-updated", handleLessonUpdate);
 
     return () =>
-      window.removeEventListener("follow-updated", handleFollowUpdate);
+      window.removeEventListener("lesson-updated", handleLessonUpdate);
   }, [userEmail, followingTutors]);
+
+  /**
+   * ✅ Listen for lesson updates from tutors and refresh dynamically
+   */
+  useEffect(() => {
+    const handleLessonUpdate = () => {
+      console.log("🔄 Refreshing student schedule due to lesson update...");
+      setSchedule([]); // Clear current schedule before fetching again
+    };
+
+    window.addEventListener("lesson-updated", handleLessonUpdate);
+
+    return () =>
+      window.removeEventListener("lesson-updated", handleLessonUpdate);
+  }, []);
 
   return (
     <div className="homepage">

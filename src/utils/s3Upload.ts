@@ -14,7 +14,7 @@ export const uploadProfilePicture = async (file: File, userId: string) => {
   try {
     // Convert file to Uint8Array (Fixes the error)
     const arrayBuffer = await file.arrayBuffer();
-    const uint8Array = new Uint8Array(arrayBuffer); 
+    const uint8Array = new Uint8Array(arrayBuffer);
 
     const uploadParams = {
       Bucket: import.meta.env.VITE_AWS_BUCKET_NAME,

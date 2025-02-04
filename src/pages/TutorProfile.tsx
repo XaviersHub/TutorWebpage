@@ -73,20 +73,24 @@ const TutorProfile = () => {
       if (!userEmail || !tutor?.email) return;
 
       try {
-        const studentRef = doc(db, "students", userEmail);
-        const studentSnap = await getDoc(studentRef);
+        const studentsRef = collection(db, "students");
+        const q = query(studentsRef, where("email", "==", userEmail));
+        const querySnapshot = await getDocs(q);
 
-        if (studentSnap.exists()) {
-          const studentData = studentSnap.data();
+        if (!querySnapshot.empty) {
+          const studentData = querySnapshot.docs[0].data();
+          console.log("📌 Fetched student data:", studentData); // Debugging
           setIsFollowing(studentData.following?.includes(tutor.email));
+        } else {
+          console.warn("⚠️ No student document found.");
         }
       } catch (error) {
-        console.error("Error checking following status:", error);
+        console.error("❌ Error checking following status:", error);
       }
     };
 
     checkFollowingStatus();
-  }, [tutor, userEmail]);
+  }, [tutor, userEmail]); // Runs whenever tutor or userEmail changes
 
   const handleFollow = async () => {
     if (!userEmail || !tutor?.email) return;
@@ -99,7 +103,7 @@ const TutorProfile = () => {
 
       if (querySnapshot.empty) {
         console.warn(
-          "Student document does not exist. Creating new student record..."
+          "⚠️ Student document does not exist. Creating a new one..."
         );
         return;
       }
@@ -108,21 +112,23 @@ const TutorProfile = () => {
       const studentRef = doc(db, "students", studentDoc.id); // ✅ Use its ID
 
       if (isFollowing) {
-        // ✅ Unfollow the tutor
+        console.log(`👋 Unfollowing tutor: ${tutor.email}`);
         await updateDoc(studentRef, {
           following: arrayRemove(tutor.email),
         });
         setIsFollowing(false);
       } else {
-        // ✅ Follow the tutor
+        console.log(`✅ Following tutor: ${tutor.email}`);
         await updateDoc(studentRef, {
           following: arrayUnion(tutor.email),
         });
         setIsFollowing(true);
       }
+
+      // ✅ Notify Student Homepage to refresh lessons
       window.dispatchEvent(new Event("follow-updated"));
     } catch (error) {
-      console.error("Error updating following status:", error);
+      console.error("❌ Error updating following status:", error);
     }
   };
 

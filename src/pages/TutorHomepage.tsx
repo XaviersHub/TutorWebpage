@@ -88,6 +88,9 @@ const TutorHomepage: React.FC = () => {
         studentEmail: "",
         isPublic: false,
       });
+
+      // ✅ Notify StudentHomepage that a new lesson has been added
+      window.dispatchEvent(new Event("lesson-updated"));
     } catch (error) {
       console.error("❌ Error adding lesson:", error);
     }
