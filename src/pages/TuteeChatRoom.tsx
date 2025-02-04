@@ -84,7 +84,9 @@ const ChatRoom: React.FC = () => {
     fetchChatroomData();
   }, [chatroomId, userEmail]);
 
-  const sendMessage = async () => {
+  const sendMessage = async (e: React.FormEvent) => {
+    e.preventDefault(); // Prevent page refresh
+
     if (!newMessage.trim() || !userEmail || !chatroomId) return;
 
     try {
@@ -109,11 +111,13 @@ const ChatRoom: React.FC = () => {
   };
 
   return (
-    <body className="chatbody">
+    <div className="chatroom-page"> 
     <div className="chatroom-container">
       <h2 className="chatroom-title">{otherUserName}</h2>
-      <button className="chat-back-button" onClick={() => navigate(-1)}>Go Back</button>
-      
+
+      {/* Fixed the Go Back button */}
+      <button className="chat-back-button" onClick={() => navigate(-1)}>⬅ Go Back</button>
+
       <div className="chat-messages">
         {messages.map((msg, index) => (
           <div key={index} className={`chat-message ${msg.sender === userEmail ? "student-message" : "tutor-message"}`}>
@@ -125,7 +129,8 @@ const ChatRoom: React.FC = () => {
         ))}
       </div>
       
-      <div className="chat-input-container">
+      {/* ✅ Wrap the input & button inside a <form> for better behavior */}
+      <form className="chat-input-container" onSubmit={sendMessage}>
         <input
           type="text"
           className="chat-input"
@@ -133,10 +138,10 @@ const ChatRoom: React.FC = () => {
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
         />
-        <button className="chat-send-button" onClick={sendMessage}>Send</button>
-      </div>
+        <button type="submit" className="chat-send-button">Send</button>
+      </form>
     </div>
-    </body>
+    </div>
   );
 };
 
