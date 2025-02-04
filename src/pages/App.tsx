@@ -13,6 +13,8 @@ import TutorSignUp from "./TutorSignUp";
 import StudentHomepage from "./StudentHomepage";
 import TutorHomepage from "./TutorHomepage";
 import TutorProfile from "../pages/TutorProfile"; // ✅ Add Tutor Profile Route
+import TuteeChatRoom from "./TuteeChatRoom";
+import ViewReviews from "./ViewReviews";
 const FindATutor = React.lazy(() => import("./FindTutor"));
 const BecomeATutor = React.lazy(() => import("./BecomeTutor"));
 
@@ -37,11 +39,14 @@ const App: React.FC = () => {
           <Route path="/tutorsignup" element={<TutorSignUp />} />
           <Route path="/studenthomepage" element={<StudentHomepage />} />
           <Route path="/tutorhomepage" element={<TutorHomepage />} />
+          <Route path="/write-review" element={<Reviews />} />
+          <Route path="/view-reviews" element={<ViewReviews />} />
           <Route
             path="/tutor-profile/:tutorId"
             element={<TutorProfile />}
           />{" "}
           {/* ✅ Tutor Profile Route */}
+          <Route path="/chat/:chatroomId" element={<TuteeChatRoom />} />
         </Routes>
       </Suspense>
     </Router>

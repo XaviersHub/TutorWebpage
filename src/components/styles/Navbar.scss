@@ -23,3 +23,18 @@
 .text-fade:hover {
     color: white !important;
 }
+@font-face {
+    font-family: IBM_Plex_Serif ;
+    src: url(/src/assets/fonts/IBMPlexSerif-Regular.ttf);
+}
+.IBM_Plex_Serif{
+    font-family: IBM_Plex_Serif;
+}
+@font-face {
+    font-family: Montserrat;
+    src: url(C:\Users\frinz\Downloads\TutorWebpage-homepage-setup\TutorWebpage-homepage-setup\public\Montserrat\Montserrat-VariableFont_wght.ttf);
+}
+.Montserrat{
+    font-family: Montserrat;
+    font-size: 100px;
+}
