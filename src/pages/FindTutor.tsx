@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../database/firebaseConfig"; // Firestore config
-import { collection, getDocs } from "firebase/firestore"; // Firestore methods
+import { collection, getDocs, query, where } from "firebase/firestore"; // Firestore methods
 import SearchBar from "../components/SearchBar";
 import AccountWidget from "../components/AccountWidget";
 import NavBar from "../components/NavBar";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 interface Tutor {
   id: string;
@@ -22,9 +23,12 @@ const FindTutor = () => {
   const [error, setError] = useState("");
   const [subjectFilter, setSubjectFilter] = useState<string>(""); // **State for subject filter**
   const [levelFilter, setLevelFilter] = useState<string>(""); // **State for level filter**
+  const [followingTutors, setFollowingTutors] = useState<string[]>([]); // **State for following tutor emails**
   const navigate = useNavigate();
+  const userEmail = Cookies.get("userEmail"); // Get the logged-in student's email
 
   useEffect(() => {
+    // Fetch the list of tutors
     const fetchTutors = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "tutors"));
@@ -33,7 +37,7 @@ const FindTutor = () => {
           ...doc.data(),
         })) as Tutor[];
         setTutors(tutorList);
-        setFilteredTutors(tutorList); // **Initially show all tutors**
+        setFilteredTutors(tutorList); // Initially show all tutors
         setLoading(false);
       } catch (error) {
         console.error("Error fetching tutors:", error);
@@ -42,12 +46,37 @@ const FindTutor = () => {
       }
     };
 
+    // Fetch the list of tutors the student is following
+    const fetchFollowingTutors = async () => {
+      if (!userEmail) return;
+
+      try {
+        const studentsRef = collection(db, "students");
+        const studentQuery = query(studentsRef, where("email", "==", userEmail));
+        const studentSnapshot = await getDocs(studentQuery);
+
+        if (!studentSnapshot.empty) {
+          const studentData = studentSnapshot.docs[0].data();
+          const followingList: string[] = studentData.following || [];
+          setFollowingTutors(followingList); // Store the list of emails the student is following
+        } else {
+          setFollowingTutors([]);
+        }
+      } catch (error) {
+        console.error("Error fetching following tutors:", error);
+      }
+    };
+
     fetchTutors();
-  }, []);
+    fetchFollowingTutors();
+  }, [userEmail]);
 
   // **Filtering logic based on selected subject and level**
   useEffect(() => {
     let filtered = tutors;
+
+    // Filter out the tutors the student is already following
+    filtered = filtered.filter(tutor => !followingTutors.includes(tutor.email));
 
     if (subjectFilter) {
       filtered = filtered.filter(tutor =>
@@ -60,7 +89,7 @@ const FindTutor = () => {
     }
 
     setFilteredTutors(filtered);
-  }, [subjectFilter, levelFilter, tutors]);
+  }, [subjectFilter, levelFilter, tutors, followingTutors]);
 
   if (loading) return <p>Loading tutors...</p>;
   if (error) return <p className="text-danger">{error}</p>;
@@ -79,19 +108,19 @@ const FindTutor = () => {
       <div className="container mt-4">
         <h1 className="mb-4">Find a Tutor</h1>
 
-        {/* **Filter Section** */}
+        {/* Filter Section */}
         <div className="d-flex mb-4">
           <div className="me-3">
             <label>Subject:</label>
             <select
               className="form-select"
               value={subjectFilter}
-              onChange={(e) => setSubjectFilter(e.target.value)} // **Updating subject filter**
+              onChange={(e) => setSubjectFilter(e.target.value)} // Updating subject filter
             >
               <option value="">All Subjects</option>
               {tutors
                 .flatMap(tutor => tutor.subjects)
-                .filter((value, index, self) => self.indexOf(value) === index) // **Get unique subjects**
+                .filter((value, index, self) => self.indexOf(value) === index) // Get unique subjects
                 .map((subject) => (
                   <option key={subject} value={subject}>{subject}</option>
                 ))}
@@ -103,12 +132,12 @@ const FindTutor = () => {
             <select
               className="form-select"
               value={levelFilter}
-              onChange={(e) => setLevelFilter(e.target.value)} // **Updating level filter**
+              onChange={(e) => setLevelFilter(e.target.value)} // Updating level filter
             >
               <option value="">All Levels</option>
               {tutors
                 .map(tutor => tutor.levels)
-                .filter((value, index, self) => self.indexOf(value) === index) // **Get unique levels**
+                .filter((value, index, self) => self.indexOf(value) === index) // Get unique levels
                 .map((level) => (
                   <option key={level} value={level}>{level}</option>
                 ))}
@@ -130,7 +159,7 @@ const FindTutor = () => {
               </tr>
             </thead>
             <tbody>
-              {/* **Rendering filtered tutors** */}
+              {/* Rendering filtered tutors */}
               {filteredTutors.map((tutor) => (
                 <tr key={tutor.id} style={{ backgroundColor: "#7EAAC9", color: "black" }}>
                   <td>{tutor.fullName}</td>
@@ -149,7 +178,11 @@ const FindTutor = () => {
                     </button>
                   </td>
                 </tr>
+            
               ))}
+                  <tr> 
+                  <td> You are already following the other tutors </td>
+                </tr>
             </tbody>
           </table>
         </div>

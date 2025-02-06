@@ -64,6 +64,9 @@ const NavBar: React.FC = () => {
           <Link to={homeLink} className="nav-link active text-fade">
             HOME
           </Link>
+          <Link to="/following" className="nav-link active text-fade">
+            FOLLOWING-TUTORS   
+          </Link>
 
           <Link to="/about" className="nav-link active text-fade">
             ABOUT US
