@@ -5,7 +5,7 @@ import { db } from "../database/firebaseConfig";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import "./styles/Navbar.scss";
 
-const NavBar: React.FC = () => {
+const NavBarTutor: React.FC = () => {
   const [homeLink, setHomeLink] = useState<string>("/");
   const userEmail = Cookies.get("userEmail"); // ✅ Get logged-in user email
 
@@ -64,17 +64,22 @@ const NavBar: React.FC = () => {
           <Link to={homeLink} className="nav-link active text-fade">
             HOME
           </Link>
-
-          <Link to="/about" className="nav-link active text-fade">
+          <Link to="/profile" className="nav-link active text-fade">
+            PROFILE
+          </Link>
+          <Link to="/followers" className="nav-link active text-fade">
+                    STUDENT-FOLLOWERS
+                </Link>
+          <Link to="/aboutTutor" className="nav-link active text-fade">
             ABOUT US
           </Link>
-          <Link to="/contact" className="nav-link active text-fade">
+          <Link to="/contactTutor" className="nav-link active text-fade">
             CONTACT
           </Link>
-          <Link to="/faqs" className="nav-link active text-fade">
+          <Link to="/faqsTutor" className="nav-link active text-fade">
             FAQS
           </Link>
-          <Link to="/reviews" className="nav-link active text-fade">
+          <Link to="/view-reviewsTutor" className="nav-link active text-fade">
             REVIEWS
           </Link>
         </div>
@@ -103,4 +108,4 @@ const NavBar: React.FC = () => {
   );
 };
 
-export default NavBar;
+export default NavBarTutor;

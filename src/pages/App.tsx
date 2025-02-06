@@ -15,6 +15,13 @@ import TutorHomepage from "./TutorHomepage";
 import TutorProfile from "../pages/TutorProfile"; // ✅ Add Tutor Profile Route
 import TuteeChatRoom from "./TuteeChatRoom";
 import ViewReviews from "./ViewReviews";
+import Profile from "./Profile";
+import AboutUsTutor from "./AboutUsTutor";
+import ContactTutor from "./ContactTutor";
+import FAQTutor from "./FAQTutor";
+import ViewReviewsTutor from "./ViewReviewsTutor";
+import FollowedStudents from "./FollowedStudents";
+import FollowedStudentsD from "./FFFFFollowedStudents copy";
 const FindATutor = React.lazy(() => import("./FindTutor"));
 const BecomeATutor = React.lazy(() => import("./BecomeTutor"));
 
@@ -41,6 +48,19 @@ const App: React.FC = () => {
           <Route path="/tutorhomepage" element={<TutorHomepage />} />
           <Route path="/write-review" element={<Reviews />} />
           <Route path="/view-reviews" element={<ViewReviews />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/aboutTutor" element={<AboutUsTutor />} />
+          <Route path="/contactTutor" element={<ContactTutor />} />
+          <Route path="/faqsTutor" element={<FAQTutor />} />
+          <Route path="/view-reviewsTutor" element={<ViewReviewsTutor />} />
+          <Route path="/followers" element={<FollowedStudents />} />
+          <Route path="/followersd" element={<FollowedStudentsD />} />
+
+
+
+
+
+
           <Route
             path="/tutor-profile/:tutorId"
             element={<TutorProfile />}

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
 import { db } from "../database/firebaseConfig";
 import Cookies from "js-cookie";
@@ -6,6 +8,8 @@ import SearchBar from "../components/SearchBar";
 import AccountWidget from "../components/AccountWidget";
 import NavBar from "../components/NavBar";
 import "../components/styles/LoginHomepage.css";
+import NavBarTutor from "../components/NavBarTutor";
+import FollowedStudents from "./FollowedStudents";
 
 interface Lesson {
   id: string;
@@ -98,10 +102,19 @@ const TutorHomepage: React.FC = () => {
 
   return (
     <div className="homepage">
-      {/*<SearchBar />*/}
-      <AccountWidget />
-      <NavBar />
-      <h1 className="scheduleheader">Your Teaching Schedule</h1>
+      <div
+        className="d-flex justify-content-between"
+        style={{ backgroundColor: "#B2D8E9" }}
+      >
+       {/* <SearchBar /> */}
+       <h2 className="title" style={{ fontSize: "60px", fontWeight: "bold", marginTop:"5px", marginRight:"120px" }}>TutorGo</h2>
+        <img src="/images/logo.png" alt="Picture" className="logo-image pill" />
+        <AccountWidget />
+      </div>
+      <NavBarTutor />
+      <div className="center-text">
+      <h1>Your Teaching Schedule</h1>
+      </div>
 
       <div className="schedulecontainer">
         <table className="scheduletable">
@@ -132,7 +145,7 @@ const TutorHomepage: React.FC = () => {
 
       {/* Add Lesson Form */}
       <div className="form-container">
-        <h1 className="scheduleheader2">Create Schedule</h1>
+        <h3 className="scheduleheader2">Create Schedule</h3>
         <form onSubmit={handleAddLesson} className="lesson-form">
           <input
             type="text"
@@ -202,8 +215,10 @@ const TutorHomepage: React.FC = () => {
           )}
 
           <button type="submit">Add Lesson</button>
-        </form>
+        </form> 
       </div>
+      
+      
     </div>
   );
 };
