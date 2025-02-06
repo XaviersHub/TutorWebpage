@@ -30,7 +30,7 @@ interface Tutor {
   photo?: string;
 }
 
-const TutorProfileC = () => {
+const FollowingListTutor = () => {
   const [followingTutors, setFollowingTutors] = useState<Tutor[]>([]);
   const { tutorId } = useParams<{ tutorId?: string }>(); // ✅ Extract tutorId from URL
   const navigate = useNavigate();
@@ -174,4 +174,4 @@ const TutorProfileC = () => {
   );
 };
 
-export default TutorProfileC;
+export default FollowingListTutor;
