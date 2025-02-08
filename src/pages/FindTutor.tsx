@@ -171,15 +171,22 @@ const FindTutor = () => {
                     <a href={`mailto:${tutor.email}`}>{tutor.email}</a>
                   </td>
                   <td>
-                    <button
-                      className="btn btn-info"
-                      onClick={() => navigate(`/tutor-profile/${tutor.id}`)}
-                    >
-                      View Profile
-                    </button>
+                  <button
+                    className="btn btn-info"
+                    onClick={() => {
+                      if (!userEmail) {  
+                        alert("You must be signed in to view profiles.");
+                        setTimeout(() => navigate("/LoginMain"), 500); // Redirect after 0.5 seconds
+                      } else {
+                        navigate(`/tutor-profile/${tutor.id}`);
+                      }
+                    }}
+                  >
+                    View Profile
+                  </button>
                   </td>
                 </tr>
-            
+
               ))}
                   <tr> 
                   <td> No More Tutors </td>
