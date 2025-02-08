@@ -34,9 +34,13 @@ const AboutUsTutor = () => {
             <strong>Our Team/Who We Are</strong>
             <div className="cards">
               <p className="whoweare">Xavier:</p>
-              <p className="whoweare">Backend Development:</p>
+              <p className="whoweare">Frontend and Backend Development:</p>
               <div className="aboutus">
                 <ul>
+                  <li>
+                    Created Reusable components for the webpage (eg. Navigation
+                    bar, Account widget)
+                  </li>
                   <li>
                     Focused on backend logic, cloud integration, and real-time
                     data handling
@@ -57,8 +61,76 @@ const AboutUsTutor = () => {
                 </ul>
               </div>
               <p className="whoweare">Takumi:</p>
+              <p className="whoweare">Frontend and Backend Development:</p>
+              <div className="aboutus">
+                <ul>
+                  <li>
+                    Focused on backend logic, cloud integration, and real-time
+                    data handling
+                  </li>
+                  <li>
+                    Using Firebase Firestore, implemented secure data storage
+                    for user authentication
+                  </li>
+                  <li>
+                    Ensured dynamic UI updates, implementated account creation
+                    and storage for respective profiles
+                  </li>
+                  <li>
+                    Integrated chatroom features between students and tutors
+                  </li>
+                </ul>
+              </div>
               <p className="whoweare">Skye:</p>
+              <p className="whoweare">Frontend and Backend Development:</p>
+              <div className="aboutus">
+                <ul>
+                  <li>
+                    Implemented tutor profile with edit functionality, syncing
+                    updates to Firebase Firestore
+                  </li>
+                  <li>
+                    Cleaned up UI for tutor side and enabled tutors to view
+                    reviews made for them
+                  </li>
+                  <li>
+                    Added a following tab for both students and tutors UI,
+                    including a button that directs to the chatroom
+                  </li>
+                  <li>
+                    Added a filter on the student UI to display tutors based on
+                    subjects and levels taught
+                  </li>
+                  <li>
+                    Ensured that the "Find Tutor" feature for students excludes
+                    tutors the student is already following
+                  </li>
+                </ul>
+              </div>
               <p className="whoweare">Frinze:</p>
+              <p className="whoweare">Frontend Development:</p>
+              <div className="aboutus">
+                <ul>
+                  <li>Focused on Frontend logic, Styling and Responsiveness</li>
+                  <li>
+                    implemented css files and styled the overall ui of the
+                    website including logo and various other elements.
+                  </li>
+                  <li>
+                    ⁠implemented google fonts api for quality look of the
+                    webpage
+                  </li>
+                </ul>
+              </div>
+              <p className="whoweare">Backend Development:</p>
+              <div className="aboutus">
+                <ul>
+                  <li>
+                    created an unfollow/remove function on the backend which
+                    updates the firebase to remove a student follower.
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
           <div className="card-title">

@@ -65,7 +65,7 @@ const NavBar: React.FC = () => {
             HOME
           </Link>
           <Link to="/following" className="nav-link active text-fade">
-            YOUR-TUTORS   
+            YOUR-TUTORS
           </Link>
 
           <Link to="/about" className="nav-link active text-fade">
@@ -85,7 +85,7 @@ const NavBar: React.FC = () => {
         {/* Social Media Links */}
         <div className="d-flex">
           <a
-            href="https://facebook.com"
+            href="https://www.facebook.com/profile.php?id=61572927572904"
             target="_blank"
             rel="noopener noreferrer"
             className="nav-link active socialMed"
