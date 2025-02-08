@@ -5,6 +5,7 @@ import SearchBar from "../components/SearchBar";
 import AccountWidget from "../components/AccountWidget";
 import NavBar from "../components/NavBar";
 import { useNavigate } from "react-router-dom";
+import "../components/styles/FindTutor.css";
 import Cookies from "js-cookie";
 
 interface Tutor {
@@ -95,9 +96,9 @@ const FindTutor = () => {
   if (error) return <p className="text-danger">{error}</p>;
 
   return (
-    <div>
+    <div className="homepage">
       {/* Header Section */}
-      <div className="d-flex justify-content-between" style={{ backgroundColor: "#BDEDF2" }}>
+      <div className="d-flex justify-content-between" style={{ backgroundColor: "#B2d8e9" }}>
         <h2 className="title" style={{ fontSize: "60px", fontWeight: "bold", marginTop: "5px", marginRight: "120px" }}>TutorGo</h2>
         <img src="/images/logo.png" alt="Logo" className="logo-image pill" />
         <AccountWidget />
@@ -106,12 +107,12 @@ const FindTutor = () => {
 
       {/* Main Content */}
       <div className="container mt-4">
-        <h1 className="mb-4">Find a Tutor</h1>
+        <h1 className="mb-4" style={{fontFamily:"IBM_Plex_Serif", fontWeight:"900"}}>Find a Tutor</h1>
 
         {/* Filter Section */}
         <div className="d-flex mb-4">
           <div className="me-3">
-            <label>Subject:</label>
+            <label style={{fontFamily:"IBM_Plex_Serif", fontWeight:"900"}}>Subject:</label>
             <select
               className="form-select"
               value={subjectFilter}
@@ -128,7 +129,7 @@ const FindTutor = () => {
           </div>
 
           <div>
-            <label>Level:</label>
+            <label style={{fontFamily:"IBM_Plex_Serif", fontWeight:"900"}}>Level:</label>
             <select
               className="form-select"
               value={levelFilter}
@@ -147,9 +148,9 @@ const FindTutor = () => {
 
         {/* Table Section */}
         <div className="table-responsive">
-          <table className="table table-bordered">
-            <thead style={{ backgroundColor: "#BDEDF2" }}>
-              <tr>
+          <table style={{ backgroundColor: "#F8F8F8", fontFamily:"IBM_Plex_Serif", fontWeight:"bold" }}className="table table-bordered">
+            <thead style={{  fontFamily:"IBM_Plex_Serif" }}>
+              <tr style={{color:"#f8f8f8"}}>
                 <th>Name</th>
                 <th>Subjects</th>
                 <th>Level</th>
@@ -161,7 +162,7 @@ const FindTutor = () => {
             <tbody>
               {/* Rendering filtered tutors */}
               {filteredTutors.map((tutor) => (
-                <tr key={tutor.id} style={{ backgroundColor: "#7EAAC9", color: "black" }}>
+                <tr key={tutor.id} style={{ backgroundColor: "#F8F8f8", color: "black" }}>
                   <td>{tutor.fullName}</td>
                   <td>{tutor.subjects.join(", ")}</td>
                   <td>{tutor.levels}</td>
@@ -181,7 +182,7 @@ const FindTutor = () => {
             
               ))}
                   <tr> 
-                  <td> You are already following the other tutors </td>
+                  <td> No More Tutors </td>
                 </tr>
             </tbody>
           </table>

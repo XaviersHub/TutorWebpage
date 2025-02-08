@@ -1,7 +1,7 @@
 import React from "react";
 import SearchBar from "../components/SearchBar";
 import AccountWidget from "../components/AccountWidget";
-import NavBar from "../components/NavBar";
+import GuestNav from "../components/GuestNav";
 import "../components/styles/HeaderSec.css";
 
 const AboutUs = () => {
@@ -16,7 +16,7 @@ const AboutUs = () => {
         <img src="/images/logo.png" alt="Picture" className="logo-image pill" />
         <AccountWidget />
       </div>
-      <NavBar />
+      <GuestNav />
       <div className="container mt-4">
         <div className="cardrow align-items-center">
           <div className="card-title">

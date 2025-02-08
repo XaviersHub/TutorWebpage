@@ -79,7 +79,7 @@ const ViewReviewsTutor = () => {
       </div>
       <NavBarTutor />
       <div className="reviews-container">
-        <h2>Your Reviews</h2>
+        <h2 style={{fontWeight:"900"}}>Your Reviews</h2>
         {reviews.length > 0 ? (
           reviews.map((review) => (
             <div key={review.id} className="review-box">

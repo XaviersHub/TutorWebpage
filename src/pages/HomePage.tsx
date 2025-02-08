@@ -1,7 +1,7 @@
 import React from "react";
 import SearchBar from "../components/SearchBar";
 import AccountWidget from "../components/AccountWidget";
-import NavBar from "../components/NavBar";
+import GuestNav from "../components/GuestNav";
 import HeaderSection from "../components/HeaderSection";
 import AboutUs from "../pages/AboutUs";
 import "../components/styles/HeaderSec.css";
@@ -18,7 +18,7 @@ const HomePage: React.FC = () => {
         <img src="/images/logo.png" alt="Picture" className="logo-image pill" />
         <AccountWidget />
       </div>
-      <NavBar />
+      <GuestNav />
       <HeaderSection />
     </div>
   );

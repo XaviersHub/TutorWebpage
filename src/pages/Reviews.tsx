@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../database/firebaseConfig";
 import Cookies from "js-cookie";
-import NavBar from "../components/NavBar";
+import GuestNav from "../components/GuestNav";
 import AccountWidget from "../components/AccountWidget";
 import "../components/styles/Reviews.css";
 
@@ -52,11 +52,11 @@ const Reviews: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="homepage">
       {/* Header Section */}
       <div
         className="d-flex justify-content-between"
-        style={{ backgroundColor: "#BDEDF2" }}
+        style={{ backgroundColor: "#B2d8e9" }}
       >
         <h2
           className="title"
@@ -72,7 +72,7 @@ const Reviews: React.FC = () => {
         <img src="/images/logo.png" alt="Picture" className="logo-image pill" />
         <AccountWidget />
       </div>
-      <NavBar />
+      <GuestNav />
       <div className="review-container">
         <h2>Write a Review</h2>
         <form onSubmit={handleSubmit}>

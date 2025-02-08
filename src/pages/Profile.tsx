@@ -144,7 +144,7 @@ const Profile = () => {
       </div>
       <NavBarTutor/>
     <div className="profile-container">
-      <h2>User Profile</h2>
+      <h2 style={{ fontWeight:"900", marginTop:"120px" }}>User Profile</h2>
       {userData && (
         <div className="profile-info">
           <img src={userData.photo} alt="Profile" style={{ width: "100px", height: "100px", borderRadius: "50%" }} />

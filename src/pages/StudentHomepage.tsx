@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from "react";
-import {
-  collection,
-  query,
-  where,
-  getDocs,
-  onSnapshot,
-} from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../database/firebaseConfig";
 import Cookies from "js-cookie";
-import SearchBar from "../components/SearchBar";
 import AccountWidget from "../components/AccountWidget";
 import NavBar from "../components/NavBar";
-import "../components/styles/LoginHomepage.css";
+import "../components/styles/StudentHomepage.css";
 
 interface Lesson {
   id: string;
@@ -28,14 +21,14 @@ interface Lesson {
 
 const StudentHomepage: React.FC = () => {
   const [schedule, setSchedule] = useState<Lesson[]>([]);
-  const [followingTutors, setFollowingTutors] = useState<string[]>([]);
+  const [approvedTutors, setApprovedTutors] = useState<string[]>([]); // ✅ Approved tutors only
   const userEmail = Cookies.get("userEmail");
 
   /**
-   * ✅ Fetch the list of tutors that the student is following
+   * ✅ Fetch the list of tutors the student has been **approved to follow**
    */
   useEffect(() => {
-    const fetchFollowingTutors = async () => {
+    const fetchApprovedTutors = async () => {
       if (!userEmail) return;
 
       try {
@@ -45,20 +38,20 @@ const StudentHomepage: React.FC = () => {
 
         if (!querySnapshot.empty) {
           const studentData = querySnapshot.docs[0].data();
-          console.log("👀 Fetched Following Tutors:", studentData.following);
-          setFollowingTutors(studentData.following || []);
+          console.log("👀 Approved Tutors List:", studentData.following);
+          setApprovedTutors(studentData.following || []);
         } else {
           console.warn("⚠️ No student document found.");
         }
       } catch (error) {
-        console.error("❌ Error fetching followed tutors:", error);
+        console.error("❌ Error fetching approved tutors:", error);
       }
     };
 
-    fetchFollowingTutors();
+    fetchApprovedTutors();
 
-    // ✅ Listen for follow updates
-    const handleFollowUpdate = () => fetchFollowingTutors();
+    // ✅ Listen for updates when follow status changes
+    const handleFollowUpdate = () => fetchApprovedTutors();
     window.addEventListener("follow-updated", handleFollowUpdate);
 
     return () =>
@@ -66,12 +59,16 @@ const StudentHomepage: React.FC = () => {
   }, [userEmail]);
 
   /**
-   * ✅ Fetch lessons in real-time and update schedule dynamically
+   * ✅ Fetch lessons in real-time from approved tutors only
    */
   useEffect(() => {
     const fetchSchedule = async () => {
-      if (!userEmail || followingTutors.length === 0) {
-        console.warn("⚠️ No tutors followed yet.");
+      if (
+        !userEmail ||
+        !Array.isArray(approvedTutors) ||
+        approvedTutors.length === 0
+      ) {
+        console.warn("⚠️ No approved tutors yet.");
         return;
       }
 
@@ -87,12 +84,12 @@ const StudentHomepage: React.FC = () => {
 
         console.log("📚 All Lessons Fetched:", allLessons);
 
-        // ✅ Ensure 'students' and 'tutorEmail' are defined, otherwise default to an empty array
+        // ✅ Filter lessons by tutors the student is **approved to follow**
         const studentLessons: Lesson[] = allLessons.filter(
           (lesson) =>
             (lesson.students ?? []).includes(userEmail) || // Private lessons
             (lesson.isPublic &&
-              (followingTutors ?? []).includes(lesson.tutorEmail)) // Public lessons
+              (approvedTutors ?? []).includes(lesson.tutorEmail)) // Public lessons from approved tutors
         );
 
         console.log("✅ Filtered Lessons for Student:", studentLessons);
@@ -109,22 +106,7 @@ const StudentHomepage: React.FC = () => {
 
     return () =>
       window.removeEventListener("lesson-updated", handleLessonUpdate);
-  }, [userEmail, followingTutors]);
-
-  /**
-   * ✅ Listen for lesson updates from tutors and refresh dynamically
-   */
-  useEffect(() => {
-    const handleLessonUpdate = () => {
-      console.log("🔄 Refreshing student schedule due to lesson update...");
-      setSchedule([]); // Clear current schedule before fetching again
-    };
-
-    window.addEventListener("lesson-updated", handleLessonUpdate);
-
-    return () =>
-      window.removeEventListener("lesson-updated", handleLessonUpdate);
-  }, []);
+  }, [userEmail, approvedTutors]);
 
   return (
     <div className="homepage">
@@ -132,21 +114,26 @@ const StudentHomepage: React.FC = () => {
         className="d-flex justify-content-between"
         style={{ backgroundColor: "#B2D8E9" }}
       >
-        <SearchBar />
         <h2
           className="title"
-          style={{ fontSize: "60px", fontWeight: "bold", marginTop: "15px" }}
+          style={{
+            fontSize: "60px",
+            fontWeight: "bold",
+            marginTop: "5px",
+            marginRight: "120px",
+          }}
         >
           TutorGo
         </h2>
+        <img src="/images/logo.png" alt="Picture" className="logo-image pill" />
         <AccountWidget />
       </div>
       <NavBar />
-      <h1 className="scheduleheader">Your Schedule</h1>
-      <div className="schedulecontainer">
-        <table className="scheduletable">
+      <h1 className="studentscheduleheader">Your Schedule</h1>
+      <div className="studentschedulecontainer">
+        <table className="studentscheduletable">
           <thead>
-            <tr className="tableheader">
+            <tr className="studenttableheader">
               <th>Subject</th>
               <th>Tutor</th>
               <th>Date</th>
@@ -176,8 +163,8 @@ const StudentHomepage: React.FC = () => {
             )}
           </tbody>
         </table>
-        <a href="/find-tutor" className="schedule-button">
-        Find New Tutors
+        <a href="/find-tutor" className="findtutor-button">
+          Find New Tutors
         </a>
       </div>
     </div>

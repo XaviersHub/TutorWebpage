@@ -12,8 +12,18 @@ const AboutUsTutor = () => {
         className="d-flex justify-content-between"
         style={{ backgroundColor: "#B2D8E9" }}
       >
-       {/* <SearchBar /> */}
-       <h2 className="title" style={{ fontSize: "60px", fontWeight: "bold", marginTop:"5px", marginRight:"120px" }}>TutorGo</h2>
+        {/* <SearchBar /> */}
+        <h2
+          className="title"
+          style={{
+            fontSize: "60px",
+            fontWeight: "bold",
+            marginTop: "5px",
+            marginRight: "120px",
+          }}
+        >
+          TutorGo
+        </h2>
         <img src="/images/logo.png" alt="Picture" className="logo-image pill" />
         <AccountWidget />
       </div>
@@ -23,10 +33,32 @@ const AboutUsTutor = () => {
           <div className="card-title">
             <strong>Our Team/Who We Are</strong>
             <div className="cards">
-              <p className="cardtext">Xavier:</p>
-              <p className="cardtext">Takumi:</p>
-              <p className="cardtext">Skye:</p>
-              <p className="cardtext">Frinze:</p>
+              <p className="whoweare">Xavier:</p>
+              <p className="whoweare">Backend Development:</p>
+              <div className="aboutus">
+                <ul>
+                  <li>
+                    Focused on backend logic, cloud integration, and real-time
+                    data handling
+                  </li>
+                  <li>
+                    Using Firebase Firestore, I implemented secure data storage
+                    for user authentication, scheduling, and student-tutor
+                    interactions
+                  </li>
+                  <li>
+                    Integrated AWS S3 for seamless image uploads and retrievals
+                  </li>
+                  <li>
+                    Ensured dynamic UI updates, allowing students to follow
+                    tutors and access public and private lessons in real time
+                    along with development of the review system
+                  </li>
+                </ul>
+              </div>
+              <p className="whoweare">Takumi:</p>
+              <p className="whoweare">Skye:</p>
+              <p className="whoweare">Frinze:</p>
             </div>
           </div>
           <div className="card-title">

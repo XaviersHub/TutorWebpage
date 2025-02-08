@@ -21,11 +21,11 @@ import ContactTutor from "./ContactTutor";
 import FAQTutor from "./FAQTutor";
 import ViewReviewsTutor from "./ViewReviewsTutor";
 import FollowedStudents from "./FollowedStudents";
-import FollowedStudentsD from "./FFFFFollowedStudents copy";
-import FollowedTutor from "./FollowingTutor";
-import TutorProfileC from "./TutorProfile copy";
+
+import FollowedTutor from "./FollowingListTutor";
+import TutorProfileC from "./TutorProfile";
+import FollowingListTutor from "./FollowingListTutor";
 const FindATutor = React.lazy(() => import("./FindTutor"));
-const BecomeATutor = React.lazy(() => import("./BecomeTutor"));
 
 const App: React.FC = () => {
   return (
@@ -40,7 +40,6 @@ const App: React.FC = () => {
           <Route path="/faqs" element={<FAQ />} />
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/find-tutor" element={<FindATutor />} />
-          <Route path="/become-tutor" element={<BecomeATutor />} />
           <Route path="/loginmain" element={<LoginMain />} />
           <Route path="/studentlogin" element={<StudentLogin />} />
           <Route path="/studentsignup" element={<StudentSignUp />} />
@@ -56,13 +55,7 @@ const App: React.FC = () => {
           <Route path="/faqsTutor" element={<FAQTutor />} />
           <Route path="/view-reviewsTutor" element={<ViewReviewsTutor />} />
           <Route path="/followers" element={<FollowedStudents />} />
-          <Route path="/following" element={<TutorProfileC />} />
-
-
-
-
-
-
+          <Route path="/following" element={<FollowingListTutor />} />
           <Route
             path="/tutor-profile/:tutorId"
             element={<TutorProfile />}

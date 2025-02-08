@@ -112,8 +112,8 @@ const TutorHomepage: React.FC = () => {
         <AccountWidget />
       </div>
       <NavBarTutor />
-      <div className="center-text">
-      <h1>Your Teaching Schedule</h1>
+      <div >
+      <h1 className="scheduleheader"style={{fontFamily:"IBM_Plex_Serif",fontWeight:"900"}}>Your Teaching Schedule</h1>
       </div>
 
       <div className="schedulecontainer">
@@ -145,7 +145,7 @@ const TutorHomepage: React.FC = () => {
 
       {/* Add Lesson Form */}
       <div className="form-container">
-        <h3 className="scheduleheader2">Create Schedule</h3>
+        <h3 className="schedule-header2">Create Schedule</h3>
         <form onSubmit={handleAddLesson} className="lesson-form">
           <input
             type="text"
@@ -191,7 +191,7 @@ const TutorHomepage: React.FC = () => {
             required
           />
 
-          <label>
+          <label style={{color:"#000000"}}>
             <input
               type="checkbox"
               checked={newLesson.isPublic}
@@ -214,7 +214,7 @@ const TutorHomepage: React.FC = () => {
             />
           )}
 
-          <button type="submit">Add Lesson</button>
+          <button className="schedule-button"type="submit">Add Lesson</button>
         </form> 
       </div>
       

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SearchBar from "../components/SearchBar";
 import AccountWidget from "../components/AccountWidget";
-import NavBar from "../components/NavBar";
+import GuestNav from "../components/GuestNav";
 
 const faqs = [
   {
@@ -102,7 +102,7 @@ const FAQ = () => {
         <img src="/images/logo.png" alt="Picture" className="logo-image pill" />
         <AccountWidget />
       </div>
-      <NavBar />
+      <GuestNav />
 
       <div className="container mt-4">
         <h1 className="text-center mb-4"style={{ fontFamily:"IBM_Plex_Serif", fontWeight:"bold" }}>Frequently Asked Questions</h1>

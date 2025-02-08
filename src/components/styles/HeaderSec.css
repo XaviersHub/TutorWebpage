@@ -11,11 +11,13 @@
     font-family: IBM_Plex_Serif;
 }
 .logo-image {
-    width: 80px;
-    height: 80px;
+    position: absolute;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
-    margin-right: 50px;
-    margin-top: 5px;
+    top: 40px;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .custom-margin {
     margin-top: 50px;  /* Adjust as needed */
@@ -35,6 +37,14 @@
     border-radius: 500px;
     
  
+}
+.aboutus{
+    text-align: left;
+    padding: 30px;
+    font-size: 20px;
+    padding-top: 10px;
+    border: black 2px solid;
+    border-radius: 20px;
 }
 h2{  
     
@@ -83,11 +93,16 @@ h2{
     margin: 10px;
     border-radius: 20px;
 }
+.whoweare{
+    font-size: 30px;
+    text-align: center;
+    padding: 10px;
+    padding-bottom: 5px;
+}
 .cardtext{
     font-size: 20px;
     text-align: center;
     padding: 10px;
-
 }
 .cardrow{
     --bs-gutter-x: 1.5rem;

@@ -1,7 +1,7 @@
 import React from "react";
 import SearchBar from "../components/SearchBar";
 import AccountWidget from "../components/AccountWidget";
-import NavBar from "../components/NavBar";
+import GuestNav from "../components/GuestNav";
 import "../components/styles/HeaderSec.css";
 import ContactForm from "../components/ContactForm";
 import Chatbot from "../components/ChatBot";
@@ -18,7 +18,7 @@ const Contact = () => {
         <img src="/images/logo.png" alt="Picture" className="logo-image pill" />
         <AccountWidget />
       </div>
-      <NavBar />
+      <GuestNav />
       <div className="container mt-4">
         <div className="Contact card-title">
           <strong>Contact Information</strong>

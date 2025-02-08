@@ -4,18 +4,13 @@ import { db } from "../database/firebaseConfig";
 import {
   doc,
   getDoc,
-  updateDoc,
-  arrayUnion,
-  arrayRemove,
-  setDoc,
   collection,
   query,
-  getDocs,
   where,
+  getDocs,
   addDoc,
-} from "firebase/firestore"; // ✅ Import Firestore functions
-import Cookies from "js-cookie"; // ✅ Import Cookies for user authentication
-import SearchBar from "../components/SearchBar";
+} from "firebase/firestore";
+import Cookies from "js-cookie";
 import AccountWidget from "../components/AccountWidget";
 import NavBar from "../components/NavBar";
 import "../components/styles/TutorProfile.css";
@@ -33,14 +28,13 @@ interface Tutor {
 }
 
 const TutorProfile = () => {
-  const { tutorId } = useParams<{ tutorId?: string }>(); // ✅ Extract tutorId from URL
+  const { tutorId } = useParams<{ tutorId?: string }>();
   const navigate = useNavigate();
   const [tutor, setTutor] = useState<Tutor | null>(null);
   const [loading, setLoading] = useState(true);
-  const [isFollowing, setIsFollowing] = useState(false);
-  const userEmail = Cookies.get("userEmail"); // ✅ Get logged-in student's email
-  const studentEmail = Cookies.get("userEmail");
-  
+  const [followStatus, setFollowStatus] = useState<string | null>(null); // "following", "pending", or null
+  const userEmail = Cookies.get("userEmail");
+
   useEffect(() => {
     const fetchTutor = async () => {
       if (!tutorId) {
@@ -69,112 +63,83 @@ const TutorProfile = () => {
   }, [tutorId]);
 
   useEffect(() => {
-    const checkFollowingStatus = async () => {
+    const checkFollowStatus = async () => {
       if (!userEmail || !tutor?.email) return;
 
       try {
+        // ✅ Check if student is already following
         const studentsRef = collection(db, "students");
-        const q = query(studentsRef, where("email", "==", userEmail));
-        const querySnapshot = await getDocs(q);
+        const studentQuery = query(
+          studentsRef,
+          where("email", "==", userEmail)
+        );
+        const studentSnapshot = await getDocs(studentQuery);
 
-        if (!querySnapshot.empty) {
-          const studentData = querySnapshot.docs[0].data();
-          console.log("📌 Fetched student data:", studentData); // Debugging
-          setIsFollowing(studentData.following?.includes(tutor.email));
+        if (!studentSnapshot.empty) {
+          const studentData = studentSnapshot.docs[0].data();
+          if (studentData.following?.includes(tutor.email)) {
+            setFollowStatus("following");
+            return;
+          }
+        }
+
+        // ✅ Check if a follow request is pending
+        const followRequestsRef = collection(db, "followRequests");
+        const followQuery = query(
+          followRequestsRef,
+          where("studentEmail", "==", userEmail),
+          where("tutorEmail", "==", tutor.email)
+        );
+        const followSnapshot = await getDocs(followQuery);
+
+        if (!followSnapshot.empty) {
+          setFollowStatus("pending");
         } else {
-          console.warn("⚠️ No student document found.");
+          setFollowStatus(null);
         }
       } catch (error) {
-        console.error("❌ Error checking following status:", error);
+        console.error("Error checking follow status:", error);
       }
     };
 
-    checkFollowingStatus();
-  }, [tutor, userEmail]); // Runs whenever tutor or userEmail changes
+    checkFollowStatus();
+  }, [tutor, userEmail]);
 
-  const handleFollow = async () => {
+  const handleFollowRequest = async () => {
     if (!userEmail || !tutor?.email) return;
 
     try {
-      const studentsRef = collection(db, "students");
-      const q = query(studentsRef, where("email", "==", userEmail));
-      const querySnapshot = await getDocs(q);
+      // ✅ Add a follow request to Firestore
+      await addDoc(collection(db, "followRequests"), {
+        studentEmail: userEmail,
+        tutorEmail: tutor.email,
+        status: "pending",
+      });
 
-      if (querySnapshot.empty) {
-        console.warn(
-          "⚠️ Student document does not exist. Creating a new one..."
-        );
-        return;
-      }
-
-      const studentDoc = querySnapshot.docs[0]; // ✅ Get the first matching document
-      const studentRef = doc(db, "students", studentDoc.id); // ✅ Use its ID
-
-      if (isFollowing) {
-        console.log(`👋 Unfollowing tutor: ${tutor.email}`);
-        await updateDoc(studentRef, {
-          following: arrayRemove(tutor.email),
-        });
-        setIsFollowing(false);
-      } else {
-        console.log(`✅ Following tutor: ${tutor.email}`);
-        await updateDoc(studentRef, {
-          following: arrayUnion(tutor.email),
-        });
-        setIsFollowing(true);
-      }
-
-      // ✅ Notify Student Homepage to refresh lessons
-      window.dispatchEvent(new Event("follow-updated"));
+      setFollowStatus("pending");
+      alert(`📩 Follow request sent to ${tutor.fullName}!`);
     } catch (error) {
-      console.error("❌ Error updating following status:", error);
-    }
-  };
-
-  const handleMessage = async () => {
-    if (!tutorId || !studentEmail) {
-      alert("You must be logged in to message a tutor.");
-      return;
-    }
-
-    try {
-      const chatroomsRef = collection(db, "chatrooms");
-      const q = query(chatroomsRef, where("studentId", "==", studentEmail), where("tutorId", "==", tutorId));
-      const querySnapshot = await getDocs(q);
-
-      let chatroomId;
-      if (!querySnapshot.empty) {
-        chatroomId = querySnapshot.docs[0].id;
-      } else {
-        const newChatroomRef = await addDoc(chatroomsRef, {
-          studentId: studentEmail,
-          tutorId,
-          messages: [],
-          createdAt: new Date(),
-        });
-        chatroomId = newChatroomRef.id;
-      }
-
-      navigate(`/chat/${chatroomId}`);
-    } catch (error) {
-      console.error("Error opening chatroom:", error);
-      alert("Failed to open chatroom. Try again later.");
+      console.error("Error sending follow request:", error);
     }
   };
 
   return (
     <div>
-      <div className="d-flex justify-content-between" style={{ backgroundColor: "#B2D8E9" }}>
+      {/* Top Bar */}
+      <div
+        className="d-flex justify-content-between"
+        style={{ backgroundColor: "#B2D8E9" }}
+      >
         <AccountWidget />
       </div>
       <NavBar />
 
+      {/* Main Content */}
       <div className="container2 mt-4">
         {loading ? (
           <p>Loading tutor details...</p>
         ) : tutor ? (
           <div className="profile-container">
-            {/* Left Section - Profile Photo & Info */}
             <div className="profile-photo-section">
               <img
                 src={
@@ -199,27 +164,8 @@ const TutorProfile = () => {
               <p>
                 <strong>Reviews:</strong> {"⭐".repeat(tutor.reviews || 0)}
               </p>
-              {userEmail && (
-                <button
-                  className="btn btn-primary mt-2"
-                  onClick={() =>
-                    navigate(`/write-review?tutorEmail=${tutor.email}`)
-                  }
-                >
-                  Write a Review
-                </button>
-              )}
-              <button
-                className="btn btn-info mt-2"
-                onClick={() =>
-                  navigate(`/view-reviews?tutorEmail=${tutor.email}`)
-                }
-              >
-                View Reviews
-              </button>
             </div>
 
-            {/* Right Section - Tutor Details & Contact */}
             <div className="profile-details">
               <h2>{tutor.fullName}</h2>
               <p>
@@ -230,15 +176,23 @@ const TutorProfile = () => {
                 <a href={`mailto:${tutor.email}`}>{tutor.email}</a>
               </p>
 
-              {/* Follow Button */}
-              <button
-                className={`btn ${
-                  isFollowing ? "btn-danger" : "btn-primary"
-                } mt-2`}
-                onClick={handleFollow}
-              >
-                {isFollowing ? "Unfollow" : "Follow Tutor"}
-              </button>
+              {/* Follow Request Button */}
+              {followStatus === "following" ? (
+                <button className="btn btn-danger mt-2" disabled>
+                  ✅ Following
+                </button>
+              ) : followStatus === "pending" ? (
+                <button className="btn btn-warning mt-2" disabled>
+                  ⏳ Pending Follow
+                </button>
+              ) : (
+                <button
+                  className="btn btn-primary mt-2"
+                  onClick={handleFollowRequest}
+                >
+                  ➕ Request to Follow
+                </button>
+              )}
 
               {/* Navigation Buttons */}
               <button
@@ -247,7 +201,10 @@ const TutorProfile = () => {
               >
                 Back to Tutor Finder
               </button>
-              <button className="btn btn-success mt-2" onClick={handleMessage}>
+              <button
+                className="btn btn-success mt-2"
+                onClick={() => navigate(`/chat/${tutorId}`)}
+              >
                 Message {tutor.fullName}
               </button>
             </div>

@@ -1,16 +1,16 @@
 .schedulecontainer {
     width: 45%;
-    min-height: 55%;
+    min-height: auto;
     background-color: azure;
     border-radius: 10px;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
     position: absolute;
-    left: 27%;
-    top:33%;
+    left: 28%;
+    top:300px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding: 20px;
+    padding: 0px;
     overflow: auto; /* Allows scrolling if content overflows */
     
 }
@@ -21,45 +21,70 @@
 
 
 
-.scheduletable {
+  .scheduletable {
     width: 100%;
+    max-width: 1200px;
     border-collapse: collapse;
-}
-
-.tableheader th {
-    background-color: lightgray;
-    padding: 10px;
+    background: #ffffff;
+    border-radius: 10px;
+    font-family: IBM_Plex_Serif;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .scheduletable thead {
+    background: #007bff;
+    color: white;
+    text-transform: uppercase;
+  }
+  
+  .scheduletable th,
+  .scheduletable td {
+    padding: 12px 15px;
     text-align: left;
-    
-}
-
-.scheduletable td {
-    padding: 8px;
     border-bottom: 1px solid #ddd;
-}
+  }
+  
+  .scheduletable tbody tr:nth-child(even) {
+    background: #f8f9fa;
+  }
+  
+  .scheduletable tbody tr:hover {
+    background: #e9ecef;
+  }
+  
+  .scheduletable th {
+    font-weight: bold;
+  }
+  
+  .scheduletable td {
+    color: #333;
+  }
 
 .scheduleheader {
     position:absolute;
-    left: 50px;
-    top: 210px;
+    left: 36%;
+    top: 200px;
     font-family: IBM_Plex_Serif;
     font-weight: bold;
 }
-.scheduleheader2 {
+.schedule-header2 {
     position:absolute;
-    left: 50px;
-    top: 210px;
+    left: 80px;
+    top: 200px;
+    font-size:30px ;
     font-family: IBM_Plex_Serif;
     font-weight: bold;
 }
 .schedule-button {
     width: fit-content; /* Adjusts width based on content */
     padding: 10px 20px;
-    margin-top: 20px; /* Adds spacing from the table */
+    margin-top: 10px; /* Adds spacing from the table */
     background-color: #007bff;
     color: white;
     text-decoration: none;
     border-radius: 5px;
+    font-weight: bold;
     position: relative;
     font-size: 18px;
     text-align: center;
@@ -71,8 +96,10 @@
     margin: 0 auto; /* Center the container horizontally */
     padding: 20px;
     margin-left: 70px;
-    margin-top: 50px;
-    background-color: #e3fbff; /* Light background color */
+    font-family: IBM_Plex_Serif;
+    font-weight: 600;
+    margin-top: 70px;
+    background-color: #b2d8e9; /* Light background color */
     border-radius: 20px; /* Rounded corners */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
  }
@@ -80,7 +107,7 @@
     display: flex;
     flex-direction: column;
     width: 200px;
-   margin-top: 10px;
+   margin-top: 0px;
     gap: 15px; /* Space between the inputs */
   }
 

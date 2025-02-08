@@ -1,119 +1,133 @@
 
-/* Tutor Profile Page Styles */
-.container2 {
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  }
+
+/* Profile Container */
+.profile-container {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  padding: 20px;
   
-  /* Tutor Name */
-  h1 {
-    text-align: center;
-    color: #333;
-    font-weight: bold;
-  }
   
-  /* Profile Image */
-  .profile-photo {
-    display: block;
-    margin: 20px auto;
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid #7eaac9;
-  }
-  
-  /* Tutor Information */
-  p {
-    font-size: 16px;
-    color: #555;
-    text-align: center;
-    margin-bottom: 8px;
-  }
-  
-  /* Strong text inside paragraph */
-  p strong {
-    color: #333;
-  }
-  
-  /* Email Link */
-  a {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Rating Stars */
-  .rating {
-    font-size: 18px;
-    color: #ffcc00;
-    text-align: center;
-  }
-  
-  /* Buttons */
-  .button-container {
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  .button-container .btn {
-    margin: 5px;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    transition: 0.3s ease-in-out;
-  }
-  
-  .button-container .btn-primary {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .button-container .btn-primary:hover {
-    background-color: #0056b3;
-  }
-  
-  .button-container .btn-secondary {
-    background-color: #6c757d;
-    color: white;
-  }
-  
-  .button-container .btn-secondary:hover {
-    background-color: #495057;
-  }
-  
-  /* Mobile Responsive */
-  @media (max-width: 768px) {
-    .container {
-      padding: 15px;
-    }
-  
-    h1 {
-      font-size: 24px;
-    }
-  
-    .profile-photo {
-      width: 120px;
-      height: 120px;
-    }
-  
-    p {
-      font-size: 14px;
-    }
-  
-    .button-container .btn {
-      padding: 8px 16px;
-      font-size: 14px;
-    }
-  }
-  
+}
+
+/* Left Side - Profile Picture */
+.profile-photo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-family: IBM_Plex_Serif;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 40%;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Profile Photo */
+.profile-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #007bff;
+  margin-bottom: 15px;
+}
+
+/* Right Side - Tutor Details */
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: white;
+  font-family: IBM_Plex_Serif;
+  padding: 20px;
+  border-radius: 12px;
+  width: 60%;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Tutor Name */
+.profile-details h2 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Profile Information */
+.profile-details p {
+  font-size: 16px;
+  color: #555;
+  font-family: IBM_Plex_Serif;
+  margin: 5px 0;
+}
+
+/* Buttons */
+.btn {
+  padding: 10px 15px;
+  border-radius: 6px;
+  border: none;
+  font-size: 16px;
+  font-family: IBM_Plex_Serif;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  text-align: center;
+}
+
+/* Primary Button */
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Secondary Button */
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #495057;
+}
+
+/* Success Button */
+.btn-success {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+/* Danger Button */
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+/* Info Button */
+.btn-info {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.btn-info:hover {
+  background-color: #138496;
+}
+
+
+

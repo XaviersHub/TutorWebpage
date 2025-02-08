@@ -1,0 +1,108 @@
+/* General Page Styling */
+.homepage {
+    background-color: #d7e8ec;
+    min-height: 100vh;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Header Styling */
+.title {
+    font-size: 50px;
+    font-weight: 900;
+    color: #333;
+    margin-left: 20px;
+}
+
+
+
+/* Centered Title */
+.center-text {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Table Styling */
+.schedulecontainer5 {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.scheduletable5 {
+    width: 80%;
+    max-width: 800px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.scheduletable5 th, .scheduletable5 td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.scheduletable5 th {
+    background-color: #4a90e2;
+    color: white;
+    font-weight: bold;
+}
+
+.scheduletable5 tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Buttons */
+.btn-success {
+    background-color: #2d9c5a;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #237a47;
+}
+
+/* Email Links */
+.scheduletable5 a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.scheduletable5 a:hover {
+    text-decoration: underline;
+}
+
+/* Logout Button */
+.logout-btn {
+    background-color: #e74c3c;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #c0392b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .scheduletable5 {
+        width: 95%;
+    }
+
+    .title {
+        font-size: 40px;
+    }
+}
