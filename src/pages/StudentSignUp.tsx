@@ -28,11 +28,21 @@ const StudentSignUp: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null); // ✅ Declare state for file
   const [error, setError] = useState("");
 
+  // ✅ Function to validate the name field (only letters and spaces)
+  const isValidName = (name: string) => {
+      return /^[A-Za-z\s]+$/.test(name); // Allows only letters and spaces
+  };
+
+
   // ✅ Handle input changes for text fields
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   // ✅ Handle checkboxes for subject selection
@@ -113,17 +123,18 @@ const StudentSignUp: React.FC = () => {
 
             <div className="input-group">
               <label className="input-label">Name</label>
-              <input
-                type="name"
-                name="name"
-                className="input-field"
-                placeholder="Enter your name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
+                <input
+                  type="text"
+                  name="name"
+                  className="input-field"
+                  placeholder="Enter your name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  pattern="[A-Za-z\s]+" // ✅ Browser validation (optional)
+                  title="Only letters and spaces are allowed" // ✅ Tooltip message
+                  />
             </div>
-
             <div className="input-group">
               <label className="input-label">Password</label>
               <input

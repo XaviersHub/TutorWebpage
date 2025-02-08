@@ -6,7 +6,7 @@ import WelcomeSection from "../components/WelcomeSection";
 const LoginMain = () => {
   const navigate = useNavigate();
   return (
-    <div className="login-container">
+    <div className="login-container fancy-login-bg">
       <button
         className="btn btn-secondary back-button"
         onClick={() => navigate(-1)}

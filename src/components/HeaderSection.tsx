@@ -20,10 +20,10 @@ const HeaderSection: React.FC = () => {
         
           <div className="buttoncontainer d-flex custom-margin ps-0">
            
-            <Link to="/find-tutor" className="btn btn-primary me-2 buttonsize fade-in">
+            <Link to="/find-tutor" className="fancy-button find-tutor-btn btn btn-primary me-2 buttonsize fade-in Montserrat">
               <div className="textsize">Find a Tutor</div>
             </Link>
-            <Link to="/TutorSignUp" className="btn btn-success buttonsize fade-in">
+            <Link to="/TutorSignUp" className="fancy-button tutor-signup-btn btn btn-success buttonsize fade-in">
               <div className="textsize">Become a Tutor</div>
             </Link>
           </div>
