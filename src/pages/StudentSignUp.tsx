@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../database/firebaseConfig";
-import { uploadProfilePicture } from "../utils/s3Upload"; // ✅ Import AWS S3 upload function
+import { uploadProfilePicture } from "../utils/s3Upload"; 
 import "../components/styles/Login.css";
 import WelcomeSection from "../components/WelcomeSection";
 
@@ -25,16 +25,15 @@ const StudentSignUp: React.FC = () => {
     location: "",
   });
 
-  const [selectedFile, setSelectedFile] = useState<File | null>(null); // ✅ Declare state for file
+  const [selectedFile, setSelectedFile] = useState<File | null>(null); 
   const [error, setError] = useState("");
 
-  // ✅ Function to validate the name field (only letters and spaces)
+  
   const isValidName = (name: string) => {
-      return /^[A-Za-z\s]+$/.test(name); // Allows only letters and spaces
+      return /^[A-Za-z\s]+$/.test(name); 
   };
 
 
-  // ✅ Handle input changes for text fields
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -45,7 +44,6 @@ const StudentSignUp: React.FC = () => {
     }));
   };
 
-  // ✅ Handle checkboxes for subject selection
   const handleSubjectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
     setFormData((prevData) => ({
@@ -56,14 +54,14 @@ const StudentSignUp: React.FC = () => {
     }));
   };
 
-  // ✅ Handle file selection
+ 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setSelectedFile(e.target.files[0]);
     }
   };
 
-  // ✅ Handle form submission
+
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
@@ -76,11 +74,11 @@ const StudentSignUp: React.FC = () => {
     try {
       console.log("🚀 Uploading profile picture to S3...");
 
-      // ✅ Upload profile picture & get S3 URL
+
       const imageUrl = await uploadProfilePicture(selectedFile, formData.email);
       console.log("✅ Image uploaded successfully:", imageUrl);
 
-      // ✅ Add student data to Firestore
+
       await addDoc(collection(db, "students"), {
         name: formData.name,
         email: formData.email,
@@ -88,7 +86,7 @@ const StudentSignUp: React.FC = () => {
         subjects: formData.subjects,
         levels: formData.levels,
         location: formData.location,
-        photo: imageUrl, // ✅ Store S3 URL in Firestore
+        photo: imageUrl, 
         createdAt: new Date(),
       });
 
@@ -131,8 +129,8 @@ const StudentSignUp: React.FC = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  pattern="[A-Za-z\s]+" // ✅ Browser validation (optional)
-                  title="Only letters and spaces are allowed" // ✅ Tooltip message
+                  pattern="[A-Za-z\s]+" 
+                  title="Only letters and spaces are allowed"
                   />
             </div>
             <div className="input-group">

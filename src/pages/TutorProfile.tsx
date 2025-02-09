@@ -32,7 +32,7 @@ const TutorProfile = () => {
   const navigate = useNavigate();
   const [tutor, setTutor] = useState<Tutor | null>(null);
   const [loading, setLoading] = useState(true);
-  const [followStatus, setFollowStatus] = useState<string | null>(null); // "following", "pending", or null
+  const [followStatus, setFollowStatus] = useState<string | null>(null); 
   const userEmail = Cookies.get("userEmail");
 
   useEffect(() => {
@@ -67,7 +67,7 @@ const TutorProfile = () => {
       if (!userEmail || !tutor?.email) return;
 
       try {
-        // ✅ Check if student is already following
+       
         const studentsRef = collection(db, "students");
         const studentQuery = query(
           studentsRef,
@@ -83,7 +83,7 @@ const TutorProfile = () => {
           }
         }
 
-        // ✅ Check if a follow request is pending
+        
         const followRequestsRef = collection(db, "followRequests");
         const followQuery = query(
           followRequestsRef,
@@ -109,7 +109,6 @@ const TutorProfile = () => {
     if (!userEmail || !tutor?.email) return;
 
     try {
-      // ✅ Add a follow request to Firestore
       await addDoc(collection(db, "followRequests"), {
         studentEmail: userEmail,
         tutorEmail: tutor.email,
@@ -125,7 +124,7 @@ const TutorProfile = () => {
 
   return (
     <div>
-      {/* Top Bar */}
+    
       <div
         className="d-flex justify-content-between"
         style={{ backgroundColor: "#B2D8E9" }}
@@ -134,7 +133,7 @@ const TutorProfile = () => {
       </div>
       <NavBar />
 
-      {/* Main Content */}
+    
       <div className="container2 mt-4">
         {loading ? (
           <p>Loading tutor details...</p>
@@ -176,7 +175,7 @@ const TutorProfile = () => {
                 <a href={`mailto:${tutor.email}`}>{tutor.email}</a>
               </p>
 
-              {/* Follow Request Button */}
+          
               {followStatus === "following" ? (
                 <button className="btn btn-danger mt-2" disabled>
                   ✅ Following
@@ -194,7 +193,6 @@ const TutorProfile = () => {
                 </button>
               )}
 
-              {/* Navigation Buttons */}
               <button
                 className="btn btn-secondary mt-2"
                 onClick={() => navigate("/find-tutor")}

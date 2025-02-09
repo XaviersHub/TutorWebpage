@@ -30,8 +30,8 @@ const TutorHomepage: React.FC = () => {
     time: "",
     location: "",
     contact: "",
-    studentEmail: "", // Only needed for private lessons
-    isPublic: false, // Default to private
+    studentEmail: "", 
+    isPublic: false, 
   });
 
   const userEmail = Cookies.get("userEmail");
@@ -79,7 +79,7 @@ const TutorHomepage: React.FC = () => {
       const docRef = await addDoc(collection(db, "lessons"), newLessonData);
       const newLessonWithId = { id: docRef.id, ...newLessonData };
 
-      // ✅ Update the UI immediately without needing a page refresh
+      
       setSchedule((prevSchedule) => [...prevSchedule, newLessonWithId]);
 
       alert("✅ Lesson added successfully!");
@@ -93,7 +93,7 @@ const TutorHomepage: React.FC = () => {
         isPublic: false,
       });
 
-      // ✅ Notify StudentHomepage that a new lesson has been added
+      
       window.dispatchEvent(new Event("lesson-updated"));
     } catch (error) {
       console.error("❌ Error adding lesson:", error);
@@ -106,7 +106,7 @@ const TutorHomepage: React.FC = () => {
         className="d-flex justify-content-between"
         style={{ backgroundColor: "#B2D8E9" }}
       >
-       {/* <SearchBar /> */}
+   
        <h2 className="title" style={{ fontSize: "60px", fontWeight: "bold", marginTop:"5px", marginRight:"120px" }}>TutorGo</h2>
         <img src="/images/logo.png" alt="Picture" className="logo-image pill" />
         <AccountWidget />
@@ -143,7 +143,7 @@ const TutorHomepage: React.FC = () => {
         </table>
       </div>
 
-      {/* Add Lesson Form */}
+
       <div className="form-container">
         <h3 className="schedule-header2">Create Schedule</h3>
         <form onSubmit={handleAddLesson} className="lesson-form">

@@ -1,4 +1,4 @@
-/* General Container */
+
 .review-container {
     width: 50%;
     margin: 50px auto;
@@ -9,7 +9,7 @@
     text-align: center;
   }
   
-  /* Form Input Group */
+  
   .input-group {
     margin-bottom: 15px;
     text-align: left;
@@ -31,7 +31,7 @@
     font-size: 16px;
   }
   
-  /* Review Submit Button */
+ 
   .submit-btn {
     width: 100%;
     padding: 12px;
@@ -50,7 +50,7 @@
     background: #0056b3;
   }
   
-  /* Review Box (For Viewing Reviews) */
+
   .review-box {
     background: white;
     border-radius: 8px;
@@ -59,7 +59,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Moves it back by half its size */
+    transform: translate(-50%, -50%); 
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     text-align: left;
 }
@@ -74,13 +74,12 @@
     font-size: 16px;
   }
   
-  /* No Reviews Message */
+  
   .review-container p {
     color: #777;
     font-size: 16px;
   }
   
-  /* Responsive Styles */
   @media (max-width: 768px) {
     .review-container {
       width: 80%;

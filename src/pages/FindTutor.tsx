@@ -72,11 +72,10 @@ const FindTutor = () => {
     fetchFollowingTutors();
   }, [userEmail]);
 
-  // **Filtering logic based on selected subject and level**
   useEffect(() => {
     let filtered = tutors;
 
-    // Filter out the tutors the student is already following
+ 
     filtered = filtered.filter(tutor => !followingTutors.includes(tutor.email));
 
     if (subjectFilter) {
@@ -97,7 +96,7 @@ const FindTutor = () => {
 
   return (
     <div className="homepage">
-      {/* Header Section */}
+ 
       <div className="d-flex justify-content-between" style={{ backgroundColor: "#B2d8e9" }}>
         <h2 className="title" style={{ fontSize: "60px", fontWeight: "bold", marginTop: "5px", marginRight: "120px" }}>TutorGo</h2>
         <img src="/images/logo.png" alt="Logo" className="logo-image pill" />
@@ -105,23 +104,22 @@ const FindTutor = () => {
       </div>
       <NavBar />
 
-      {/* Main Content */}
       <div className="container mt-4">
         <h1 className="mb-4" style={{fontFamily:"IBM_Plex_Serif", fontWeight:"900"}}>Find a Tutor</h1>
 
-        {/* Filter Section */}
+   
         <div className="d-flex mb-4">
           <div className="me-3">
             <label style={{fontFamily:"IBM_Plex_Serif", fontWeight:"900"}}>Subject:</label>
             <select
               className="form-select"
               value={subjectFilter}
-              onChange={(e) => setSubjectFilter(e.target.value)} // Updating subject filter
+              onChange={(e) => setSubjectFilter(e.target.value)} 
             >
               <option value="">All Subjects</option>
               {tutors
                 .flatMap(tutor => tutor.subjects)
-                .filter((value, index, self) => self.indexOf(value) === index) // Get unique subjects
+                .filter((value, index, self) => self.indexOf(value) === index) 
                 .map((subject) => (
                   <option key={subject} value={subject}>{subject}</option>
                 ))}
@@ -133,12 +131,12 @@ const FindTutor = () => {
             <select
               className="form-select"
               value={levelFilter}
-              onChange={(e) => setLevelFilter(e.target.value)} // Updating level filter
+              onChange={(e) => setLevelFilter(e.target.value)} 
             >
               <option value="">All Levels</option>
               {tutors
                 .map(tutor => tutor.levels)
-                .filter((value, index, self) => self.indexOf(value) === index) // Get unique levels
+                .filter((value, index, self) => self.indexOf(value) === index) 
                 .map((level) => (
                   <option key={level} value={level}>{level}</option>
                 ))}
@@ -146,7 +144,7 @@ const FindTutor = () => {
           </div>
         </div>
 
-        {/* Table Section */}
+
         <div className="table-responsive">
           <table style={{ backgroundColor: "#F8F8F8", fontFamily:"IBM_Plex_Serif", fontWeight:"bold" }}className="table table-bordered">
             <thead style={{  fontFamily:"IBM_Plex_Serif" }}>
@@ -160,7 +158,7 @@ const FindTutor = () => {
               </tr>
             </thead>
             <tbody>
-              {/* Rendering filtered tutors */}
+  
               {filteredTutors.map((tutor) => (
                 <tr key={tutor.id} style={{ backgroundColor: "#F8F8f8", color: "black" }}>
                   <td>{tutor.fullName}</td>
@@ -176,7 +174,7 @@ const FindTutor = () => {
                     onClick={() => {
                       if (!userEmail) {  
                         alert("You must be signed in to view profiles.");
-                        setTimeout(() => navigate("/LoginMain"), 500); // Redirect after 0.5 seconds
+                        setTimeout(() => navigate("/LoginMain"), 500);
                       } else {
                         navigate(`/tutor-profile/${tutor.id}`);
                       }

@@ -32,7 +32,7 @@ const App: React.FC = () => {
     <Router>
       <Suspense fallback={<p>Loading...</p>}>
         {" "}
-        {/* ✅ Suspense handles lazy loading */}
+
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutUs />} />
@@ -60,7 +60,7 @@ const App: React.FC = () => {
             path="/tutor-profile/:tutorId"
             element={<TutorProfile />}
           />{" "}
-          {/* ✅ Tutor Profile Route */}
+
           <Route path="/chat/:chatroomId" element={<TuteeChatRoom />} />
         </Routes>
       </Suspense>

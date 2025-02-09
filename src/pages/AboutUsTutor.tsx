@@ -12,7 +12,7 @@ const AboutUsTutor = () => {
         className="d-flex justify-content-between"
         style={{ backgroundColor: "#B2D8E9" }}
       >
-        {/* <SearchBar /> */}
+
         <h2
           className="title"
           style={{

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../database/firebaseConfig";
-import { uploadProfilePicture } from "../utils/s3Upload"; // ✅ Import S3 Upload Function
+import { uploadProfilePicture } from "../utils/s3Upload"; 
 import "../components/styles/Login.css";
 import WelcomeSection from "../components/WelcomeSection";
 
@@ -32,14 +32,14 @@ const TutorSignUp: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [error, setError] = useState("");
 
-  // Handle text input changes
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle checkbox changes for subjects
+
   const handleSubjectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
     setFormData((prevData) => ({
@@ -50,12 +50,12 @@ const TutorSignUp: React.FC = () => {
     }));
   };
 
-  // ✅ Handle File Selection
+ 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
 
-      // ✅ Ensure it's an image file before setting state
+    
       if (!file.type.startsWith("image/")) {
         alert("Please select a valid image file.");
         return;
@@ -65,7 +65,7 @@ const TutorSignUp: React.FC = () => {
     }
   };
 
-  // ✅ Handle Form Submission
+
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
@@ -73,9 +73,9 @@ const TutorSignUp: React.FC = () => {
     try {
       console.log("🚀 Tutor form submission triggered!");
 
-      let imageUrl = "/images/user.png"; // Default Profile Picture
+      let imageUrl = "/images/user.png"; 
 
-      // ✅ Upload profile picture to S3 if a file is selected
+   
       if (selectedFile) {
         try {
           const uploadedUrl = await uploadProfilePicture(
@@ -83,7 +83,7 @@ const TutorSignUp: React.FC = () => {
             formData.email
           );
           if (uploadedUrl) {
-            imageUrl = uploadedUrl; // ✅ Use the uploaded image URL
+            imageUrl = uploadedUrl; 
           } else {
             throw new Error("Image upload failed.");
           }
@@ -94,7 +94,7 @@ const TutorSignUp: React.FC = () => {
         }
       }
 
-      // ✅ Write data to Firestore in the "tutors" collection
+      
       await addDoc(collection(db, "tutors"), {
         email: formData.email,
         password: formData.password,
@@ -104,7 +104,7 @@ const TutorSignUp: React.FC = () => {
         levels: formData.levels,
         location: formData.location,
         bio: formData.bio,
-        photo: imageUrl, // ✅ Store S3 URL or default profile picture
+        photo: imageUrl, 
         createdAt: new Date(),
       });
 

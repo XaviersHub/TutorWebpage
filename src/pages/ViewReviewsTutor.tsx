@@ -4,9 +4,9 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import Cookies from "js-cookie";
 import AccountWidget from "../components/AccountWidget";
 import NavBarTutor from "../components/NavBarTutor";
-import "../components/styles/Reviews.css"; // Add your custom styles
+import "../components/styles/Reviews.css"; 
 
-// Define the Review type
+
 interface Review {
   id: string;
   studentEmail: string;
@@ -21,7 +21,7 @@ const ViewReviewsTutor = () => {
 
   useEffect(() => {
     const fetchReviews = async () => {
-      const email = Cookies.get("userEmail"); // Get the email from cookies
+      const email = Cookies.get("userEmail"); 
 
       if (!email) {
         setError("❌ No user logged in.");
@@ -30,7 +30,7 @@ const ViewReviewsTutor = () => {
       }
 
       try {
-        // Query Firestore for reviews based on the tutor's email
+       
         const reviewsRef = collection(db, "reviews");
         const q = query(reviewsRef, where("tutorEmail", "==", email));
         const querySnapshot = await getDocs(q);
@@ -38,11 +38,11 @@ const ViewReviewsTutor = () => {
         if (querySnapshot.empty) {
           setError("❌ No reviews found.");
         } else {
-          // Extract review data and set the state
+          
           const fetchedReviews: Review[] = querySnapshot.docs.map((doc) => ({
             id: doc.id,
             studentEmail: doc.data().studentEmail,
-            rating: Number(doc.data().rating), // Ensure rating is a number
+            rating: Number(doc.data().rating), 
             comment: doc.data().comment,
           }));
 
@@ -56,9 +56,8 @@ const ViewReviewsTutor = () => {
       }
     };
 
-    fetchReviews(); // Fetch reviews on component mount
-  }, []); // Empty dependency array ensures this runs only once when the component mounts
-
+    fetchReviews(); 
+  }, []);
   if (loading) {
     return <p>Loading...</p>;
   }

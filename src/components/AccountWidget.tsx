@@ -7,18 +7,18 @@ const AccountWidget: React.FC = () => {
   const [userEmail, setUserEmail] = useState<string | null>(null);
 
   useEffect(() => {
-    // ✅ Retrieve email from cookies
+
     const email = Cookies.get("userEmail");
     if (email) {
       setUserEmail(email);
     }
   }, []);
 
-  // ✅ Logout function to remove cookie and update UI
+
   const handleLogout = () => {
-    Cookies.remove("userEmail"); // Remove email from cookies
-    setUserEmail(null); // Update UI state
-    window.location.href = "/"; // Refresh page to reflect changes
+    Cookies.remove("userEmail"); 
+    setUserEmail(null); 
+    window.location.href = "/"; 
   };
 
   return (
@@ -46,7 +46,7 @@ const AccountWidget: React.FC = () => {
   );
 };
 
-// ✅ Simple inline style for logout button
+
 const logoutButtonStyle: React.CSSProperties = {
   marginLeft: "10px",
   padding: "5px 10px",

@@ -1,8 +1,8 @@
-/* Container Styling */
+
 .studentschedulecontainer {
     width: 90%;
     max-width: 1000px;
-    margin: 0 auto; /* Centers the container */
+    margin: 0 auto; 
     padding: 0px;
     text-align: center;
     background: #ffffff;
@@ -11,7 +11,7 @@
     overflow: hidden;
   }
   
-  /* Header Styling */
+  
   .studentscheduleheader {
     text-align: center;
     font-size: 28px;
@@ -22,7 +22,7 @@
     margin-bottom: 20px;
   }
   
-  /* Table Styling */
+
   .studentscheduletable {
     width: 100%;
     border-collapse: collapse;
@@ -31,7 +31,7 @@
     overflow: hidden;
   }
   
-  /* Table Header */
+
   .studenttableheader {
     background: #007bff;
     color: white;
@@ -46,17 +46,17 @@
     border-bottom: 1px solid #ddd;
   }
   
-  /* Alternating Row Colors */
+ 
   .studentscheduletable tbody tr:nth-child(even) {
     background: #f8f9fa;
   }
   
-  /* Hover Effect */
+
   .studentscheduletable tbody tr:hover {
     background: #e9ecef;
   }
   
-  /* No Lessons Message */
+
   .studentscheduletable td[colspan="6"] {
     font-size: 16px;
     color: #555;
@@ -64,7 +64,7 @@
     padding: 20px;
   }
   
-  /* Find Tutor Button */
+ 
   .findtutor-button {
     display: inline-block;
     margin-top: 5px;
@@ -84,7 +84,7 @@
     background: #218838;
   }
   
-  /* Responsive Design */
+  
   @media (max-width: 768px) {
     .studentschedulecontainer {
       width: 100%;

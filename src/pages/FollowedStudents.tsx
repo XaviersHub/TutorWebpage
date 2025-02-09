@@ -43,7 +43,7 @@ const FollowedStudents: React.FC = () => {
       if (!userEmail) return;
 
       try {
-        // ✅ Fetch students who follow the tutor
+ 
         const studentsRef = collection(db, "students");
         const studentsQuery = query(
           studentsRef,
@@ -69,7 +69,7 @@ const FollowedStudents: React.FC = () => {
       if (!userEmail) return;
 
       try {
-        // ✅ Fetch follow requests for this tutor
+
         const followRequestsRef = collection(db, "followRequests");
         const requestsQuery = query(
           followRequestsRef,
@@ -97,12 +97,12 @@ const FollowedStudents: React.FC = () => {
     fetchFollowRequests();
   }, [userEmail]);
 
-  // ✅ Approve follow request
+
   const handleApproveFollow = async (request: FollowRequest) => {
     if (!userEmail) return;
 
     try {
-      // ✅ Add the student to tutor’s "following" list
+
       const studentsRef = collection(db, "students");
       const studentQuery = query(
         studentsRef,
@@ -117,10 +117,10 @@ const FollowedStudents: React.FC = () => {
         });
       }
 
-      // ✅ Remove request from `followRequests`
+
       await deleteDoc(doc(db, "followRequests", request.id));
 
-      // ✅ Update UI
+
       setFollowedStudents((prev) => [
         ...prev,
         { name: "Unknown", levels: "Unknown", email: request.studentEmail },
@@ -134,12 +134,12 @@ const FollowedStudents: React.FC = () => {
     }
   };
 
-  // ✅ Remove a student from following list
+
   const handleRemoveStudent = async (studentEmail: string) => {
     if (!userEmail) return;
 
     try {
-      // ✅ Remove tutor from student's following list
+ 
       const studentsRef = collection(db, "students");
       const studentQuery = query(
         studentsRef,
@@ -154,7 +154,7 @@ const FollowedStudents: React.FC = () => {
         });
       }
 
-      // ✅ Update UI
+
       setFollowedStudents((prev) =>
         prev.filter((student) => student.email !== studentEmail)
       );
@@ -166,11 +166,10 @@ const FollowedStudents: React.FC = () => {
     }
   };
 
-  const handleMessage = async (studentEmail: string) => { // Accept studentEmail as a parameter
+  const handleMessage = async (studentEmail: string) => { 
     try {
       let tutorUid = tutorId;
   
-      // Ensure tutorId is retrieved correctly
       const tutorsRef = collection(db, "tutors");
       const q = query(tutorsRef, where("email", "==", userEmail));
       const querySnapshot = await getDocs(q);
@@ -192,7 +191,7 @@ const FollowedStudents: React.FC = () => {
         chatroomId = chatSnapshot.docs[0].id;
       } else {
         const newChatroomRef = await addDoc(chatroomsRef, {
-          studentId: studentEmail, // Use studentEmail passed to the function
+          studentId: studentEmail, 
           tutorId: tutorUid,
           messages: [],
           createdAt: new Date(),

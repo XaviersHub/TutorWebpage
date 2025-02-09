@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { db } from "../database/firebaseConfig";
 import { doc, getDoc, updateDoc, arrayUnion, collection, query, where, getDocs } from "firebase/firestore";
 import Cookies from "js-cookie";
-import "../components/styles/ChatRoom.css"; // Import the new chatroom styles
+import "../components/styles/ChatRoom.css"; 
 
 interface Message {
   sender: string;
@@ -12,7 +12,7 @@ interface Message {
 }
 
 const ChatRoom: React.FC = () => {
-  const { chatroomId } = useParams<{ chatroomId?: string }>(); // Allow chatroomId to be undefined
+  const { chatroomId } = useParams<{ chatroomId?: string }>(); 
   const navigate = useNavigate();
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
@@ -28,7 +28,7 @@ const ChatRoom: React.FC = () => {
 
     const fetchUserType = async () => {
       try {
-        // Check if the user is a student
+        
         const studentsRef = collection(db, "students");
         const studentQuery = query(studentsRef, where("email", "==", userEmail));
         const studentSnap = await getDocs(studentQuery);
@@ -38,7 +38,7 @@ const ChatRoom: React.FC = () => {
           return;
         }
 
-        // Check if the user is a tutor
+       
         const tutorsRef = collection(db, "tutors");
         const tutorQuery = query(tutorsRef, where("email", "==", userEmail));
         const tutorSnap = await getDocs(tutorQuery);
@@ -63,10 +63,10 @@ const ChatRoom: React.FC = () => {
           const chatroomData = chatroomSnap.data();
           setMessages(chatroomData.messages || []);
 
-          // Determine the other user's name
+        
           const otherUserEmail = userEmail === chatroomData.studentId ? chatroomData.tutorId : chatroomData.studentId;
           
-          // Fetch the other user's name from Firestore
+          
           const usersRef = collection(db, userEmail === chatroomData.studentId ? "tutors" : "students");
           const userQuery = query(usersRef, where("email", "==", otherUserEmail));
           const userSnap = await getDocs(userQuery);
@@ -85,7 +85,7 @@ const ChatRoom: React.FC = () => {
   }, [chatroomId, userEmail]);
 
   const sendMessage = async (e: React.FormEvent) => {
-    e.preventDefault(); // Prevent page refresh
+    e.preventDefault(); 
 
     if (!newMessage.trim() || !userEmail || !chatroomId) return;
 
@@ -104,7 +104,7 @@ const ChatRoom: React.FC = () => {
         { sender: userEmail, content: newMessage, timestamp: new Date().toISOString() },
       ]);
 
-      setNewMessage(""); // Clear input field
+      setNewMessage(""); 
     } catch (error) {
       console.error("Error sending message:", error);
     }
@@ -115,7 +115,6 @@ const ChatRoom: React.FC = () => {
     <div className="chatroom-container">
       <h2 className="chatroom-title">{otherUserName}</h2>
 
-      {/* Fixed the Go Back button */}
       <button className="chat-back-button" onClick={() => navigate(-1)}>⬅ Go Back</button>
 
       <div className="chat-messages">
@@ -129,7 +128,7 @@ const ChatRoom: React.FC = () => {
         ))}
       </div>
       
-      {/* ✅ Wrap the input & button inside a <form> for better behavior */}
+     
       <form className="chat-input-container" onSubmit={sendMessage}>
         <input
           type="text"

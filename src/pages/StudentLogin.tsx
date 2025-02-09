@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../database/firebaseConfig";
-import Cookies from "js-cookie"; // ✅ Import js-cookie
+import Cookies from "js-cookie"; 
 import "../components/styles/Login.css";
 import WelcomeSection from "../components/WelcomeSection";
 
@@ -38,7 +38,7 @@ const StudentLogin = () => {
           console.log("✅ Password matches! Logging in...");
           userFound = true;
 
-          // ✅ Store email in cookies (expires in 1 day)
+          
           Cookies.set("userEmail", userData.email, { expires: 1 });
 
           alert("✅ Login successful!");
@@ -107,7 +107,7 @@ const StudentLogin = () => {
           </form>
         </div>
 
-        {/* Welcome Section */}
+
         <WelcomeSection />
       </div>
     </div>

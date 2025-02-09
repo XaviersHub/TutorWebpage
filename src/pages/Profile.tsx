@@ -21,12 +21,12 @@ const Profile = () => {
   const [userData, setUserData] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [isEditing, setIsEditing] = useState(false);  // State to track if we are in edit mode
-  const [updatedData, setUpdatedData] = useState<UserProfile | null>(null);  // State to store the updated data
+  const [isEditing, setIsEditing] = useState(false);  
+  const [updatedData, setUpdatedData] = useState<UserProfile | null>(null);  
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const email = Cookies.get("userEmail"); // Get the email from cookies
+      const email = Cookies.get("userEmail");
 
       if (!email) {
         setError("❌ No user logged in.");
@@ -35,7 +35,7 @@ const Profile = () => {
       }
 
       try {
-        // Query Firestore for the user by email
+        
         const tutorsRef = collection(db, "tutors");
         const q = query(tutorsRef, where("email", "==", email));
         const querySnapshot = await getDocs(q);
@@ -43,7 +43,7 @@ const Profile = () => {
         if (querySnapshot.empty) {
           setError("❌ No profile found for this email.");
         } else {
-          // Extract data and set the state
+          
           querySnapshot.forEach((doc) => {
             const data = doc.data();
             setUserData({
@@ -94,11 +94,11 @@ const Profile = () => {
 
   const handleSave = async () => {
     if (updatedData) {
-      const email = Cookies.get("userEmail"); // Get the email from cookies
+      const email = Cookies.get("userEmail"); 
       if (!email) return;
 
       try {
-        // Find the user in Firebase and update the data
+        
         const tutorsRef = collection(db, "tutors");
         const q = query(tutorsRef, where("email", "==", email));
         const querySnapshot = await getDocs(q);
@@ -114,7 +114,7 @@ const Profile = () => {
           });
         });
         setIsEditing(false);
-        setUserData(updatedData); // Update the local state with the new data
+        setUserData(updatedData); 
       } catch (error) {
         setError("❌ Failed to update profile.");
         console.error("❌ Error updating user data:", error);

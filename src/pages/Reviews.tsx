@@ -9,7 +9,7 @@ import "../components/styles/Reviews.css";
 
 const Reviews: React.FC = () => {
   const navigate = useNavigate();
-  const userEmail = Cookies.get("userEmail"); // ✅ Get logged-in student email
+  const userEmail = Cookies.get("userEmail"); 
   const location = useLocation();
   const tutorEmailFromProfile = new URLSearchParams(location.search).get(
     "tutorEmail"
@@ -45,7 +45,7 @@ const Reviews: React.FC = () => {
       });
 
       alert("✅ Review submitted successfully!");
-      navigate(`/reviews`); // ✅ Redirect to reviews page
+      navigate(`/reviews`); 
     } catch (error) {
       console.error("❌ Error submitting review:", error);
     }
@@ -53,7 +53,7 @@ const Reviews: React.FC = () => {
 
   return (
     <div className="homepage">
-      {/* Header Section */}
+     
       <div
         className="d-flex justify-content-between"
         style={{ backgroundColor: "#B2d8e9" }}
@@ -84,7 +84,7 @@ const Reviews: React.FC = () => {
               value={review.tutorEmail}
               onChange={handleChange}
               required
-              disabled={!!tutorEmailFromProfile} // ✅ Disable if pre-filled from Tutor Profile
+              disabled={!!tutorEmailFromProfile} 
             />
           </div>
 

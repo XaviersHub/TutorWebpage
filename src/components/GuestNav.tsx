@@ -7,32 +7,31 @@ import "./styles/Navbar.scss";
 
 const NavBar: React.FC = () => {
   const [homeLink, setHomeLink] = useState<string>("/");
-  const userEmail = Cookies.get("userEmail"); // ✅ Get logged-in user email
+  const userEmail = Cookies.get("userEmail");
 
   useEffect(() => {
     const fetchUserType = async () => {
       if (!userEmail) return;
 
       try {
-        // ✅ Check if the user is a student
+   
         const studentQuery = query(
           collection(db, "students"),
           where("email", "==", userEmail)
         );
         const studentSnapshot = await getDocs(studentQuery);
         if (!studentSnapshot.empty) {
-          setHomeLink("/StudentHomepage"); // ✅ Redirect to student homepage
+          setHomeLink("/StudentHomepage"); 
           return;
         }
 
-        // ✅ Check if the user is a tutor
         const tutorQuery = query(
           collection(db, "tutors"),
           where("email", "==", userEmail)
         );
         const tutorSnapshot = await getDocs(tutorQuery);
         if (!tutorSnapshot.empty) {
-          setHomeLink("/TutorHomepage"); // ✅ Redirect to tutor homepage
+          setHomeLink("/TutorHomepage");
           return;
         }
       } catch (error) {
@@ -49,7 +48,7 @@ const NavBar: React.FC = () => {
       style={{ backgroundColor: "#B2D8E9" }}
     >
       <div className="container-fluid navbarSize">
-        {/* Email Section */}
+
         <div className="d-flex align-items-center">
           <a
             href="mailto:tutorapp533@gmail.com"
@@ -59,7 +58,7 @@ const NavBar: React.FC = () => {
           </a>
         </div>
 
-        {/* Center Navigation Links */}
+
         <div className="navbar-nav mx-auto">
           <Link to={homeLink} className="nav-link active text-fade">
             HOME
@@ -80,7 +79,6 @@ const NavBar: React.FC = () => {
           </Link>
         </div>
 
-        {/* Social Media Links */}
         <div className="d-flex">
           <a
             href="https://facebook.com"

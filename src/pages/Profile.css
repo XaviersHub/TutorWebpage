@@ -1,4 +1,4 @@
-/* Profile container */
+
 .profile-container {
   width: fit-content;
   padding: 20px;
@@ -10,7 +10,7 @@
   
 
   
-  /* Profile Info */
+
   .profile-info {
     display: flex;
     flex-direction: row;
@@ -27,7 +27,7 @@
     border: 3px solid #ddd;
   }
   
-  /* Edit Form */
+
   .edit-form {
     display: flex;
     flex-direction: column;

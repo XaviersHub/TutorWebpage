@@ -21,12 +21,10 @@ interface Lesson {
 
 const StudentHomepage: React.FC = () => {
   const [schedule, setSchedule] = useState<Lesson[]>([]);
-  const [approvedTutors, setApprovedTutors] = useState<string[]>([]); // ✅ Approved tutors only
+  const [approvedTutors, setApprovedTutors] = useState<string[]>([]); 
   const userEmail = Cookies.get("userEmail");
 
-  /**
-   * ✅ Fetch the list of tutors the student has been **approved to follow**
-   */
+
   useEffect(() => {
     const fetchApprovedTutors = async () => {
       if (!userEmail) return;
@@ -50,7 +48,7 @@ const StudentHomepage: React.FC = () => {
 
     fetchApprovedTutors();
 
-    // ✅ Listen for updates when follow status changes
+
     const handleFollowUpdate = () => fetchApprovedTutors();
     window.addEventListener("follow-updated", handleFollowUpdate);
 
@@ -58,9 +56,7 @@ const StudentHomepage: React.FC = () => {
       window.removeEventListener("follow-updated", handleFollowUpdate);
   }, [userEmail]);
 
-  /**
-   * ✅ Fetch lessons in real-time from approved tutors only
-   */
+ 
   useEffect(() => {
     const fetchSchedule = async () => {
       if (
@@ -84,12 +80,12 @@ const StudentHomepage: React.FC = () => {
 
         console.log("📚 All Lessons Fetched:", allLessons);
 
-        // ✅ Filter lessons by tutors the student is **approved to follow**
+    
         const studentLessons: Lesson[] = allLessons.filter(
           (lesson) =>
-            (lesson.students ?? []).includes(userEmail) || // Private lessons
+            (lesson.students ?? []).includes(userEmail) || 
             (lesson.isPublic &&
-              (approvedTutors ?? []).includes(lesson.tutorEmail)) // Public lessons from approved tutors
+              (approvedTutors ?? []).includes(lesson.tutorEmail)) 
         );
 
         console.log("✅ Filtered Lessons for Student:", studentLessons);

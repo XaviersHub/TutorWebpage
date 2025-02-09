@@ -1,13 +1,13 @@
 .homepage {
-    background-color: #e0f3f4; /* Change this to your desired color */
-    min-height: 100vh; /* Ensures full-page coverage */
+    background-color: #e0f3f4; 
+    min-height: 100vh; 
     width: 100%;
   }
   
   
   .hero_title {
-    font-size: 5vw;  /* Scales with the viewport width */
-    left: 5vw;  /* Adjusts position dynamically */
+    font-size: 5vw;  
+    left: 5vw;  
     top: 25vh;
     font-family: IBM_Plex_Serif;
 }
@@ -21,19 +21,19 @@
     transform: translate(-50%, -50%);
 }
 .custom-margin {
-    margin-top: 50px;  /* Adjust as needed */
+    margin-top: 50px;  
     margin-left: 70px;
     text-align: left;
 }
 .buttoncontainer {
     display: flex;
-    gap: 0px; /* Space between buttons */
+    gap: 0px; 
   
     padding-left: 0; 
   }
 .custom-image {
-    width: 110%;  /* Adjust the width as needed */
-    height: 100%;  /* Keeps the aspect ratio */
+    width: 110%;  
+    height: 100%;  
     margin-top: 0px;
     border-radius: 500px;
     
@@ -77,15 +77,15 @@ h2{
     display: inline-block;
   }
   
-  /* Subtle glowing effect with a light highlight */
+  
   .accountwidget:hover {
     color: white;
-    background: rgba(255, 255, 255, 0.2); /* Light, subtle highlight */
+    background: rgba(255, 255, 255, 0.2);
     transform: scale(1.1);
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
   }
   
-  /* Soft underline effect */
+  
   .accountwidget::after {
     content: "";
     display: block;
@@ -100,7 +100,7 @@ h2{
     opacity: 0.6;
   }
   
-  /* Underline expands on hover */
+ 
   .accountwidget:hover::after {
     transform: scaleX(1);
     opacity: 1;
@@ -186,11 +186,11 @@ h2{
     margin: 30px;
 }
 .text-alignment {
-    text-align: center; /* Center text and content horizontally */
+    text-align: center; 
     display: flex;
-    justify-content: center; /* Center the items horizontally */
-    align-items: center; /* Center the items vertically */
-    gap: 10px; /* Add spacing between items */
+    justify-content: center; 
+    align-items: center; 
+    gap: 10px; 
 }
 .socialMed{
     margin: 10px;
@@ -201,9 +201,9 @@ h2{
 }
 .social-container {
     display: flex;
-    justify-content: center; /* Centers the items horizontally */
-    align-items: center; /* Centers the items vertically */
-    gap: 10px; /* Add spacing between items */
+    justify-content: center; 
+    align-items: center;
+    gap: 10px; 
     margin-top: 10px;
 }
 .image-fluid{
@@ -229,9 +229,9 @@ h2{
     font-family: Montserrat;
     font-size: 100px;
 }
-/* animations to make ui nicer */
+
 .fade-in {
-    opacity: 0; /* Start invisible */
+    opacity: 0; 
     animation: fadeIn 1s ease-in forwards;
 }
 
@@ -245,8 +245,8 @@ h2{
 }
 
 .fade-in-top {
-    opacity: 0; /* Start transparent */
-    transform: translateY(-20px); /* Start 20px above */
+    opacity: 0; 
+    transform: translateY(-20px); 
     animation: fadeInTop 1.5s ease-out forwards;
 }
 
@@ -306,7 +306,7 @@ h2{
     box-shadow: 0px 10px 20px rgba(40, 167, 69, 0.5);
   }
   
-  /* Fancy Image Styles */
+  
   .custom-image-container {
     display: flex;
     justify-content: center;

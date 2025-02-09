@@ -89,12 +89,12 @@ const FollowingListTutor = () => {
 
       const studentDoc = studentSnapshot.docs[0].ref;
 
-      // Remove tutor from following list
+
       await updateDoc(studentDoc, {
         following: arrayRemove(tutorEmail),
       });
 
-      // Update state to reflect the change
+
       setFollowingTutors((prevTutors) =>
         prevTutors.filter((tutor) => tutor.email !== tutorEmail)
       );

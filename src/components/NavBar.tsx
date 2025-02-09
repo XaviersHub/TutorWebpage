@@ -46,14 +46,13 @@ const NavBar: React.FC = () => {
         <div className="navbar-nav mx-auto">
           <Link to={homeLink} className="nav-link active text-fade">HOME</Link>
 
-          {/* ✅ Protected "YOUR-TUTORS" Button */}
           <button
             className="nav-link active text-fade btn-link"
             style={{ background: "none", border: "none", padding: "0", font: "inherit", color: "inherit" }}
             onClick={() => {
               if (!userEmail) {
                 alert("You must be signed in to access this page.");
-                setTimeout(() => navigate("/LoginMain"), 500); // Redirect after alert
+                setTimeout(() => navigate("/LoginMain"), 500); 
               } else {
                 navigate("/following");
               }

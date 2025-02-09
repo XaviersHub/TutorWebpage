@@ -11,7 +11,7 @@
     justify-content: center;
     align-items: flex-start;
     padding: 0px;
-    overflow: auto; /* Allows scrolling if content overflows */
+    overflow: auto; 
     
 }
 
@@ -77,9 +77,9 @@
     font-weight: bold;
 }
 .schedule-button {
-    width: fit-content; /* Adjusts width based on content */
+    width: fit-content;
     padding: 10px 20px;
-    margin-top: 10px; /* Adds spacing from the table */
+    margin-top: 10px; 
     background-color: #007bff;
     color: white;
     text-decoration: none;
@@ -92,23 +92,23 @@
 }
 
 .form-container {
-    width: 250px; /* Set the width */
-    margin: 0 auto; /* Center the container horizontally */
+    width: 250px; 
+    margin: 0 auto;
     padding: 20px;
     margin-left: 70px;
     font-family: IBM_Plex_Serif;
     font-weight: 600;
     margin-top: 70px;
-    background-color: #b2d8e9; /* Light background color */
-    border-radius: 20px; /* Rounded corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    background-color: #b2d8e9; 
+    border-radius: 20px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
  }
   .lesson-form {
     display: flex;
     flex-direction: column;
     width: 200px;
    margin-top: 0px;
-    gap: 15px; /* Space between the inputs */
+    gap: 15px; 
   }
 
 @font-face {

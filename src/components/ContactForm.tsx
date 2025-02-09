@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import emailjs from "emailjs-com";
-import { db } from "../database/firebaseConfig"; // Import Firebase instance
+import { db } from "../database/firebaseConfig"; 
 import { collection, addDoc } from "firebase/firestore";
 import "./styles/HeaderSec.css";
 
@@ -22,13 +22,12 @@ const ContactForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Sending email using EmailJS
     emailjs
       .send(
-        "service_u04h0o5", // EmailJS service ID
-        "template_k5mepkt", // EmailJS template ID
+        "service_u04h0o5",
+        "template_k5mepkt", 
         formData,
-        "IBjTw7VEqSOOAxygM" // EmailJS public key
+        "IBjTw7VEqSOOAxygM" 
       )
       .then((result) => {
         alert("Message sent successfully!");
@@ -39,7 +38,7 @@ const ContactForm: React.FC = () => {
         console.log("Email error:", error.text);
       });
 
-    // Storing form data in Firebase Firestore
+  
     try {
       await addDoc(collection(db, "contacts"), {
         name: formData.name,
@@ -55,7 +54,7 @@ const ContactForm: React.FC = () => {
       console.error("Firestore error:", error);
     }
 
-    // Clear the form
+
     setFormData({
       name: "",
       email: "",

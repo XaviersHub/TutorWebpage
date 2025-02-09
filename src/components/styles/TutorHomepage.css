@@ -1,4 +1,4 @@
-/* TutorHomepage.css */
+
 
 .schedule-container {
     display: flex;
@@ -8,10 +8,10 @@
   
   .schedule-table {
     flex: 1;
-    /* Add your table styling here */
+   
   }
   .schedulecontainer {
-    margin-bottom: 30px; /* Adds space between the schedule table and the followed students table */
+    margin-bottom: 30px; 
   }
   
   .scheduletable {
@@ -26,7 +26,7 @@
   }
   
   .schedulecontainer:last-child {
-    margin-bottom: 0; /* Removes margin from the last container */
+    margin-bottom: 0; 
   }
   
   .form-container {
@@ -41,7 +41,7 @@
   
   .followers-list {
     flex: 0.4;
-    /* Add your followers list styling here */
+  
   }
   
   .followers-list ul {
