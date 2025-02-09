@@ -42,7 +42,7 @@ const TutorLogin = () => {
           Cookies.set("userEmail", userData.email, { expires: 1 });
 
           alert("✅ Login successful!");
-          navigate("/TutorHomepage"); // ✅ Redirect to TutorHomepage
+          navigate("/TutorHomepage"); // ✅ Redirect TutorHomepage
         }
       });
 
