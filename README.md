@@ -54,13 +54,14 @@ The app will run on http://localhost:5173/ (or another available port).
 ✔️ Responsive UI (Designed for both mobile & desktop)
 
 🔥 Useful Commands
-Command	Description
-npm install	Installs all dependencies
-npm start	Runs the app locally on localhost:3000
-npm run build	Creates a production build
-npm test	Runs test cases (if implemented)
-git pull origin main	Fetches the latest updates from GitHub
-git push origin main	Pushes changes to the repository
+Command	Description </br>
+
+```npm install```	Installs all dependencies </br>
+```npm start```	Runs the app locally on localhost:3000 </br>
+```npm run build```	Creates a production build </br>
+```npm test```	Runs test cases (if implemented) </br>
+```git pull origin main```	Fetches the latest updates from GitHub </br>
+```git push origin main```	Pushes changes to the repository </br>
 🛠 Troubleshooting
 Common Issues & Solutions
 npm start fails with missing modules
